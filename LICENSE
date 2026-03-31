@@ -1,0 +1,39 @@
+Custom License Notice
+=====================
+
+Copyright (c) 2026 zengrong233
+
+This repository contains two different kinds of material:
+
+1. Original packaging work created for this repository, including:
+   - the Codex skill structure,
+   - `SKILL.md`,
+   - `agents/openai.yaml`,
+   - repository organization,
+   - installation instructions,
+   - and the routing/reference files written specifically for this Codex skill package.
+
+2. Adapted and inspired material derived from the public project:
+   - `Leey21/awesome-ai-research-writing`
+   - https://github.com/Leey21/awesome-ai-research-writing
+
+License grant for original packaging work
+-----------------------------------------
+
+Subject to the limitations below, permission is hereby granted, free of charge, to any person obtaining a copy of the original packaging work in this repository to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of that original packaging work, provided that this notice is included in all copies or substantial portions of the original packaging work.
+
+THE ORIGINAL PACKAGING WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE ORIGINAL PACKAGING WORK OR THE USE OR OTHER DEALINGS IN THE ORIGINAL PACKAGING WORK.
+
+Important limitation regarding upstream material
+------------------------------------------------
+
+This repository is inspired by and partially adapted from the upstream repository named above.
+As checked on March 31, 2026, the upstream GitHub repository page visibly showed `README.md` and `images/`, and no public `LICENSE` text was visible on that page.
+
+Accordingly:
+
+- this notice does not claim to relicense the upstream repository,
+- this notice does not grant rights to any third-party material except to the extent such rights are independently available,
+- and users are responsible for reviewing the upstream repository and its current rights status before reusing adapted content beyond this repository's original packaging work.
+
+If the upstream project later publishes a clear open-source license, users should also comply with that license where applicable.

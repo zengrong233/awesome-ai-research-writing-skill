@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Agent / local tooling
+.codex/
+.cursor/
+.claude/
+
+# Logs
+*.log

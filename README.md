@@ -4,6 +4,8 @@
 [![Validation](https://img.shields.io/badge/quick__validate-passing-2EA043)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 [![GitHub stars](https://img.shields.io/github/stars/zengrong233/awesome-ai-research-writing-skill?style=social)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 
+[中文 README](./README.zh-CN.md)
+
 Turn a prompt-library style academic writing project into a real Codex skill package.
 
 This repository adapts the ideas and workflow categories from [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) into a format that Codex can discover and use directly through `SKILL.md`.
@@ -157,3 +159,8 @@ This repository is an adaptation of the ideas, task categories, and workflow int
 
 It does not aim to replace the original repository.
 It exists to convert that style of material into a Codex-friendly skill package format.
+
+## License
+
+This repository includes original packaging work for Codex plus adapted structure inspired by upstream material.
+See [LICENSE](./LICENSE) for the exact scope and limitations.
