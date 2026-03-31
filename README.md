@@ -4,51 +4,64 @@
 [![Validation](https://img.shields.io/badge/quick__validate-passing-2EA043)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 [![GitHub stars](https://img.shields.io/github/stars/zengrong233/awesome-ai-research-writing-skill?style=social)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 
-[中文 README](./README.zh-CN.md)
+[English README](./README.en.md)
 
-Turn a prompt-library style academic writing project into a real Codex skill package.
+把一个“提示词合集 / skills 导航型项目”改造成 Codex 可直接安装和触发的 skill 包。
 
-This repository adapts the ideas and workflow categories from [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) into a format that Codex can discover and use directly through `SKILL.md`.
+这个仓库基于 [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) 的任务分类和工作流思路，重新组织为 Codex 可识别的 `SKILL.md` 结构。
 
-## Why This Exists
+## 这个仓库解决什么问题
 
-The original project is strong as a prompt collection and a curated index of writing-related skills, but it is not a Codex-installable skill by itself.
+原项目非常适合：
 
-This repository converts that style of content into a Codex-native package so the agent can:
+- 查阅论文写作 prompt
+- 了解常见写作场景
+- 发现其他好用的写作类 skills
 
-- route academic writing tasks automatically
-- perform the writing task directly instead of only returning a prompt template
-- support bilingual Chinese-English paper writing
-- keep detailed task logic in `references/` without bloating the main skill file
+但它本身不是一个可以被 Codex 直接安装的标准 skill 包。
 
-## Original Project vs This Repository
+这个仓库做的事情是把这些内容转换成 Codex 原生格式，让 Codex 能直接：
 
-| Item | Original Project | This Repository |
+- 自动识别论文写作类请求
+- 直接执行写作、改写、翻译、审稿式检查
+- 用 `references/` 管理任务细节，而不是把所有内容塞进一个超长 README
+
+## 原项目与本仓库的区别
+
+| 项目 | 原项目 | 本仓库 |
 | --- | --- | --- |
-| Main form | README-style prompt collection | Standard Codex skill package |
-| Directly installable in Codex | No | Yes |
-| Triggered by `SKILL.md` | No | Yes |
-| Best use | Reading prompts, discovering tools | Direct writing, revision, and review inside Codex |
-| Core adaptation | Prompt examples and workflow categories | Trigger description, routing rules, output contracts, references |
+| 主要形态 | README 提示词合集 | 标准 Codex skill 包 |
+| 能否直接装进 Codex | 不能 | 可以 |
+| 是否依赖 `SKILL.md` 触发 | 否 | 是 |
+| 最适合的用途 | 阅读 prompt、找工具 | 在 Codex 中直接完成写作任务 |
+| 核心改造 | 提示词与分类思路 | 触发描述、路由规则、输出约定、references |
 
-## What The Skill Covers
+## 常见提示词 / 触发示例
 
-The skill is designed for common academic writing tasks such as:
+适合处理这些高频科研写作任务：
 
-- Chinese draft -> English LaTeX
-- English LaTeX -> readable Chinese
-- Chinese academic rewriting
-- English academic polishing
-- shortening or expanding a paragraph
-- de-AI / humanizing text
-- logic checking
-- figure titles, table titles, and captions
-- experiment analysis
-- reviewer-style paper assessment
+- 中文草稿 -> 英文学术 LaTeX
+- 英文 LaTeX -> 可读中文
+- 中文论文段落重写
+- 英文学术润色
+- 缩写或扩写段落
+- 去 AI 味 / humanize
+- 逻辑检查
+- 图标题、表标题、caption
+- 实验分析写作
+- reviewer 视角的论文审查
 
-## Repository Overview
+直接在 Codex 中输入类似下面的话即可：
 
-This repository currently provides one installable skill package:
+```text
+Use $awesome-ai-research-writing to rewrite this Chinese method draft into English LaTeX.
+Use $awesome-ai-research-writing to polish this Introduction and remove AI-sounding phrasing.
+Use $awesome-ai-research-writing to shorten this paragraph by about 10 words without losing technical meaning.
+Use $awesome-ai-research-writing to analyze the following experiment table in paper style.
+Use $awesome-ai-research-writing to review this paper section from a strict reviewer perspective.
+```
+
+## 仓库结构
 
 ```text
 awesome-ai-research-writing/
@@ -60,43 +73,43 @@ awesome-ai-research-writing/
     └── upstream-skills.md
 ```
 
-### File Roles
+各文件作用如下：
 
 - `SKILL.md`
-  - defines what the skill does
-  - tells Codex when to trigger it
-  - provides core workflow and output rules
+  - 定义 skill 的能力边界
+  - 告诉 Codex 在什么场景触发
+  - 规定核心工作流和输出规则
 - `references/prompt-routing.md`
-  - maps user requests to the right writing behavior
-  - keeps task-specific details out of the main skill file
+  - 负责把用户需求路由到正确的写作行为
+  - 把翻译、润色、缩写、扩写、实验分析、review 等细节从主 skill 文件里拆出来
 - `references/upstream-skills.md`
-  - explains when to prefer stronger specialized skills such as `research-paper-writing`, `humanizer`, `docx`, `doc-coauthoring`, and `canvas-design`
+  - 说明什么时候应该优先使用更专业的上游 skill
 - `agents/openai.yaml`
-  - provides Codex UI metadata
+  - 提供 Codex UI 元数据
 
-## Installation
+## 安装方式
 
-Assume you are in the repository root.
+默认假设你在仓库根目录。
 
-### Option 1: Manual Install
+### 方式 1：手动安装
 
-Copy the skill into `$CODEX_HOME/skills/`:
+复制到 `$CODEX_HOME/skills/`：
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
 cp -R awesome-ai-research-writing "$CODEX_HOME/skills/"
 ```
 
-If `CODEX_HOME` is unset, use the default Codex directory:
+如果没有设置 `CODEX_HOME`，可以使用默认目录：
 
 ```bash
 mkdir -p "$HOME/.codex/skills"
 cp -R awesome-ai-research-writing "$HOME/.codex/skills/"
 ```
 
-### Option 2: Install With The Codex Skill Installer
+### 方式 2：通过 Codex skill-installer 安装
 
-If you already have the Codex `skill-installer` system skill available, install directly from GitHub:
+如果你的环境里已经有 Codex 的 `skill-installer`，可以直接从 GitHub 安装：
 
 ```bash
 python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
@@ -104,46 +117,33 @@ python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-gi
   --path awesome-ai-research-writing
 ```
 
-After installation, restart Codex to pick up the new skill.
+安装完成后，重启 Codex 使 skill 生效。
 
-## Quick Start
+## 设计原则
 
-Use `$awesome-ai-research-writing` to draft, polish, translate, or review academic writing.
+这个 skill 故意把 `SKILL.md` 控制得比较轻。
 
-Examples:
+主文件只保留：
 
-- `Use $awesome-ai-research-writing to rewrite this Chinese method draft into English LaTeX.`
-- `Use $awesome-ai-research-writing to polish this Introduction and remove AI-sounding phrasing.`
-- `Use $awesome-ai-research-writing to shorten this paragraph by about 10 words without losing technical meaning.`
-- `Use $awesome-ai-research-writing to analyze the following experiment table in paper style.`
-- `Use $awesome-ai-research-writing to review this paper section from a strict reviewer perspective.`
+- 触发描述
+- 工作流规则
+- 输出约定
 
-## Design Principles
+更细的任务细节放在 `references/` 中按需加载，这样更接近真实可用的 skill 包，而不是单纯的提示词堆叠。
 
-This skill intentionally keeps `SKILL.md` lean.
+## 与上游 skills 的关系
 
-The main file contains:
+这个仓库并不想替代所有更强的专业写作 skill。
+它更像一层适合 Codex 的“双语学术写作路由器”。
 
-- trigger description
-- workflow guidance
-- output contracts
+尤其适合：
 
-The details live in `references/`, so Codex can load them only when needed.
-This keeps the skill closer to a real production package than to a long prompt dump.
+- 翻译
+- 段落改写
+- 论文润色
+- reviewer 视角检查
 
-## Relationship to Upstream Skills
-
-This repository does not try to replace every specialized writing skill.
-Instead, it acts as a practical bilingual writing-and-routing layer for Codex.
-
-It is especially useful when the user wants direct help on:
-
-- translation
-- paragraph rewriting
-- academic polishing
-- reviewer-style diagnosis
-
-For deeper workflows, the skill can defer to stronger upstream tools such as:
+如果任务更深、更专门，也可以继续衔接这些上游 skill：
 
 - `research-paper-writing`
 - `humanizer`
@@ -151,16 +151,15 @@ For deeper workflows, the skill can defer to stronger upstream tools such as:
 - `doc-coauthoring`
 - `canvas-design`
 
-## Attribution
+## 致谢与说明
 
-This repository is an adaptation of the ideas, task categories, and workflow intent from:
+本仓库改造自以下项目的思路、任务分类与工作流意图：
 
 - [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing)
 
-It does not aim to replace the original repository.
-It exists to convert that style of material into a Codex-friendly skill package format.
+它并不试图替代原项目，而是把那类内容转换成 Codex 更容易直接消费的 skill 包格式。
 
-## License
+## 许可证
 
-This repository includes original packaging work for Codex plus adapted structure inspired by upstream material.
-See [LICENSE](./LICENSE) for the exact scope and limitations.
+本仓库包含面向 Codex 的原创打包工作，同时也包含对上游项目思路与部分表达方式的适配整理。
+具体授权边界请查看 [LICENSE](./LICENSE)。
