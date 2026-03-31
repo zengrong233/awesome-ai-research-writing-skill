@@ -2,12 +2,25 @@
 
 Use this file when the user wants detailed sentence translation or specific de-AI rewriting behavior.
 
+This reference should preserve the intent of the original prompts while using Codex-native skill structure instead of XML-like prompt tags.
+
 <a id="long-sentence-translation"></a>
 ## 1. 英语长难句翻译
 
 Use when the user gives one sentence or one dense paragraph and wants grammar-aware translation rather than a quick paraphrase.
 
-### Recommended output
+### Core role
+
+Act like a bilingual translator who explains grammar, clause structure, collocations, and the final meaning in readable Chinese.
+
+### Internal checklist
+
+1. What type of text this is.
+2. What the main clause is.
+3. Which subordinate clauses and modifiers matter most.
+4. Which keywords need context-sensitive explanation.
+
+### Required output
 
 1. `句子拆分`
    - 主句
@@ -16,7 +29,7 @@ Use when the user gives one sentence or one dense paragraph and wants grammar-aw
 3. `语法要点`
 4. `整句翻译`
 
-### Rules
+### Constraints
 
 1. Keep the translation faithful to the original meaning.
 2. Explain idioms or fixed collocations when needed.
@@ -27,6 +40,10 @@ Use when the user gives one sentence or one dense paragraph and wants grammar-aw
 
 Use when English LaTeX paper text sounds generic or over-produced.
 
+### Core goal
+
+Keep the meaning and LaTeX structure, but remove generic, over-smoothed, or sales-like AI writing signals.
+
 ### Rules
 
 1. Preserve LaTeX commands, math, labels, and citations.
@@ -36,13 +53,17 @@ Use when English LaTeX paper text sounds generic or over-produced.
 
 ### Return
 
-1. Revised LaTeX text.
-2. Optional short note about the removed AI-like signals.
+1. Revised LaTeX text
+2. Optional short note about the removed AI-like signals
 
 <a id="de-ai-word-zh"></a>
 ## 3. 去 AI 味（Word 中文）
 
 Use when Chinese technical or academic prose sounds too templated and the user wants a more natural but still professional version.
+
+### Core goal
+
+Rewrite the text into a slightly more explanatory and human-sounding style without changing the technical meaning.
 
 ### Style rules
 
@@ -63,4 +84,4 @@ Use when Chinese technical or academic prose sounds too templated and the user w
 
 ### Return
 
-1. The revised Chinese text only, unless the user asks for an explanation.
+1. The revised Chinese text only, unless the user asks for an explanation

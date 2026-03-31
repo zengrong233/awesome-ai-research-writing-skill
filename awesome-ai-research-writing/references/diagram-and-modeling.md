@@ -2,12 +2,25 @@
 
 Use this file when the user wants prompts for paper figures, experiment-plot planning, or UML-style modeling output.
 
+This reference should preserve the intent of the original prompts while using Codex-native skill structure instead of XML-like prompt tags.
+
 <a id="paper-figure-prompts"></a>
 ## 1. 科研绘图专家（三层级英文提示词）
 
 Use when the user provides research code, a paper, or a method description and wants figure prompts for image-generation tools or design drafting.
 
-### Output format
+### Core role
+
+Act like a researcher who can read algorithms and map code logic into publication-style visuals.
+
+### Internal checklist
+
+1. Recover the architecture from code or paper text.
+2. Identify the true innovation that deserves emphasis.
+3. Map each component to a clear visual element.
+4. Follow normal CS/AI diagram conventions.
+
+### Required output
 
 1. `Level 1: 整体架构图`
    - Purpose: Figure 1 or Figure 2
@@ -19,7 +32,7 @@ Use when the user provides research code, a paper, or a method description and w
    - Purpose: explain training or inference logic
    - Goal: show ordered steps and branches clearly
 
-### Rules
+### Constraints
 
 1. Write the final prompts in English.
 2. Use accurate CS/AI terms such as `feature map`, `concatenation`, `attention weights`, or `tensor`.
@@ -50,6 +63,17 @@ Use when the user asks which figures should be drawn for results, ablations, tre
 ## 3. 系统建模分析师（UML）
 
 Use when the user provides a system description or code and wants use-case, class, sequence, state, or activity analysis.
+
+### Core role
+
+Act like a modeling analyst who can turn system descriptions into clean UML-style abstractions.
+
+### Internal checklist
+
+1. What the system boundary is.
+2. Who the actors are.
+3. What the core entities and interactions are.
+4. Which diagram type best answers the user's question.
 
 ### Workflow
 
