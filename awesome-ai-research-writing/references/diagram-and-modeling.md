@@ -7,57 +7,116 @@ This reference should preserve the intent of the original prompts while using Co
 <a id="paper-figure-prompts"></a>
 ## 1. 科研绘图专家（三层级英文提示词）
 
-Use when the user provides research code, a paper, or a method description and wants figure prompts for image-generation tools or design drafting.
+Use when the user provides a paper abstract, method description, code, or module explanation and wants a prompt for a publishable paper figure.
 
 ### Core role
 
-Act like a researcher who can read algorithms and map code logic into publication-style visuals.
+Act like a top-tier scientific illustrator for CVPR-, NeurIPS-, or ICLR-style papers.
 
-### Internal checklist
+### Core task
 
-1. Recover the architecture from code or paper text.
-2. Identify the true innovation that deserves emphasis.
-3. Map each component to a clear visual element.
-4. Follow normal CS/AI diagram conventions.
+Recover the method's key mechanism, module structure, and data flow, then convert that understanding into a professional academic figure prompt.
+
+### Visual constraints
+
+1. Style
+   - Use a professional, clean, modern, minimal paper-figure style.
+   - Prefer flat vector illustration with clean lines and an academic aesthetic similar to DeepMind or OpenAI figures.
+   - Use a pure white background.
+2. Color
+   - Use pastel or soft tones.
+   - Avoid oversaturated or heavy dark colors.
+   - Use color differences to distinguish module types clearly.
+3. Content and layout
+   - Turn the method into clear modules and arrow-based data flow.
+   - Highlight the true novelty rather than drawing every detail equally.
+   - Use simple vector icons only when they improve clarity.
+4. Text rules
+   - All labels inside the figure must be in English.
+   - Add readable labels for key modules or equations when they matter.
+   - Do not place long sentences or complex formulas inside the figure.
+5. Negative constraints
+   - No photorealistic imagery.
+   - No sketchy lines.
+   - No unreadable text.
+   - No cheap 3D shading artifacts.
 
 ### Required output
 
 1. `Level 1: 整体架构图`
-   - Purpose: Figure 1 or Figure 2
-   - Goal: show the full pipeline and data flow
+   - an English prompt for the full method figure
 2. `Level 2: 核心模块图`
-   - Purpose: zoom into the key contribution
-   - Goal: show internal interactions and signals
+   - an English prompt focused on the main novelty module
 3. `Level 3: 算法流程图`
-   - Purpose: explain training or inference logic
-   - Goal: show ordered steps and branches clearly
+   - an English prompt for training or inference logic
+4. A brief Chinese note explaining what each level is best used for
 
-### Constraints
+### Prompt-writing rules
 
 1. Write the final prompts in English.
-2. Use accurate CS/AI terms such as `feature map`, `concatenation`, `attention weights`, or `tensor`.
-3. Prefer clean academic visual styles: white background, controlled color palette, explicit arrows.
-4. Keep the Chinese explanation short and put the prompt blocks first.
+2. Use correct CS and AI terms such as `feature map`, `fusion`, `attention weights`, `decoder`, or `loss`.
+3. Keep the logic visually consistent with the provided method description.
+4. If the user only wants one prompt, output the best single English prompt first.
 
 <a id="experiment-figure-recommendation"></a>
 ## 2. 实验绘图推荐
 
-Use when the user asks which figures should be drawn for results, ablations, trends, or comparisons.
+Use when the user asks which figures should be drawn for results, ablations, trends, distributions, or trade-offs.
 
-### Recommend based on data shape
+### Core role
 
-1. Single-metric method comparison -> bar chart
-2. Multi-metric trade-off -> radar chart or grouped bars
-3. Trend across epochs or settings -> line chart
-4. Module contribution -> ablation table plus bar chart
-5. Error distribution or category sensitivity -> heatmap
-6. Precision-recall behavior -> PR curve
+Act like a high-end academic data-visualization expert who selects the chart that best proves the user's experimental claim.
 
-### Return
+### Preferred academic chart library
 
-1. Figure type
-2. What question it helps answer
-3. Suggested title or caption direction
+1. Method comparison
+   - grouped bar chart
+   - horizontal bar chart when labels are long or methods are many
+   - Pareto frontier for accuracy-efficiency trade-offs
+   - radar chart for balanced multi-metric comparison
+   - stacked bar chart for decomposed cost or time
+2. Trend and convergence
+   - line chart with confidence band
+   - line chart with zoomed inset
+   - scatter plot with fitted curve
+3. Evaluation and classification
+   - ROC curve
+   - Precision-Recall curve for class imbalance
+4. Matrix and relationship visualization
+   - heatmap
+   - scatter plot with diagonal reference line
+   - bubble chart for adding parameter or cost scale
+5. Distribution and composition
+   - violin plot
+   - box plot
+   - donut chart when proportion display is truly necessary
+6. Composite layouts
+   - dual-axis chart
+   - bar-line combination chart
+   - faceted small-multiple grid
+
+### Constraints
+
+1. Prefer the chart types listed above before proposing anything custom.
+2. If the data comes from multiple runs, recommend error bars or confidence intervals.
+3. If value ranges are extremely uneven, suggest one of:
+   - axis break for preserving raw scale perception
+   - log scale for order-of-magnitude variation
+   - normalization for emphasizing relative gain
+4. Choose horizontal or vertical layout based on label length and density.
+5. Keep the recommendation academic rather than commercial-dashboard styled.
+
+### Required output
+
+1. `推荐方案`
+   - 1 to 2 best chart types
+2. `核心理由`
+   - why these charts best support the scientific story
+3. `视觉设计规范`
+   - x-axis and y-axis meaning and units
+   - scale handling if needed
+   - statistical elements such as error bars, fitted curves, or significance marks
+   - color and line-style suggestions
 
 <a id="uml-modeling"></a>
 ## 3. 系统建模分析师（UML）

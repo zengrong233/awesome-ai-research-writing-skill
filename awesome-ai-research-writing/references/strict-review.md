@@ -7,33 +7,48 @@ This reference should preserve the intent of the original prompts while using Co
 <a id="reviewer-review"></a>
 ## 1. Reviewer 风格审查
 
-Use when the user wants a paper, section, or experiment package reviewed from a strict reviewer perspective.
+Use when the user wants a paper, section, experiment package, or uploaded PDF reviewed from a strict reviewer perspective for a target venue.
 
 ### Core role
 
-Act like a strict reviewer who helps improve the paper, but does not soften real weaknesses.
+Act like a demanding but fair senior reviewer for top CS conferences.
 
-### Review focus
+### Core task
 
-1. Unsupported claims
-2. Missing baselines
-3. Weak ablations
-4. Methodological gaps
-5. Logical inconsistencies
-6. Writing issues versus structural research issues
+Read the paper closely and write a strict yet constructive review that distinguishes real strengths from fatal weaknesses and reflects the actual submission quality.
 
-### Return
+### Constraints
 
-1. `主要问题`
-2. `证据与原因`
-3. `修改优先级`
-4. `简短总结`
+1. Review tone
+   - Be objective, direct, and evidence-based.
+   - Distinguish structural flaws from issues that can be fixed in revision.
+   - Do not inflate harshness as a style choice if the paper is actually strong.
+2. Review dimensions
+   - community contribution
+   - rigor and fairness of experiments
+   - consistency between claimed contributions and demonstrated evidence
+3. Writing rules
+   - Use Chinese.
+   - Prefer connected paragraphs over over-fragmented bulleting when explaining complex logic.
+   - Do not add extra conversational filler.
 
-### Rules
+### Required output
 
-1. Findings come before summaries.
-2. Focus on concrete issues rather than generic encouragement.
-3. Separate fixable writing issues from structural research issues.
+1. `Part 1 [The Review Report]`
+   - `Summary`
+   - `Strengths`
+   - `Weaknesses (Critical)`
+   - `Rating`
+2. `Part 2 [Strategic Advice]`
+   - `问题根源`
+   - `可救性判断`
+   - `行动指南`
+
+### Self-review checklist
+
+1. Make each weakness concrete and operational rather than vague.
+2. Do not confuse writing problems with method flaws.
+3. Make sure the rating matches the paper's real contribution level instead of a fixed harsh prior.
 
 <a id="strict-thesis-review"></a>
 ## 2. 严格送审评议
