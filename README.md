@@ -36,33 +36,18 @@
 | 最适合的用途 | 阅读 prompt、找工具 | 在 Codex 中直接完成研究与写作任务 |
 | 核心改造 | 提示词与分类思路 | 触发描述、路由规则、输出约定、reference prompt 库 |
 
-## Part I: 写作 Prompt 集合
+## Part I: Prompt 与工作流目录
 
-- [中转英](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-en)
-- [英转中](./awesome-ai-research-writing/references/prompt-routing.md#en-to-cn)
-- [中转中](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-cn)
-- [缩写](./awesome-ai-research-writing/references/prompt-routing.md#shorten)
-- [扩写](./awesome-ai-research-writing/references/prompt-routing.md#expand)
-- [表达润色（英文论文）](./awesome-ai-research-writing/references/prompt-routing.md#polish-en)
-- [表达润色（中文论文）](./awesome-ai-research-writing/references/prompt-routing.md#polish-zh)
-- [逻辑检查](./awesome-ai-research-writing/references/prompt-routing.md#logic-check)
-- [去 AI 味（LaTeX 英文）](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-latex-en)
-- [去 AI 味（Word 中文）](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-word-zh)
-- [论文架构图](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
-- [实验绘图推荐](./awesome-ai-research-writing/references/diagram-and-modeling.md#experiment-figure-recommendation)
-- [生成图的标题](./awesome-ai-research-writing/references/prompt-routing.md#figure-title)
-- [生成表的标题](./awesome-ai-research-writing/references/prompt-routing.md#table-title)
-- [实验分析](./awesome-ai-research-writing/references/prompt-routing.md#experiment-analysis)
-- [论文整体以 Reviewer 视角进行审视](./awesome-ai-research-writing/references/strict-review.md#reviewer-review)
-- [模型选择](./awesome-ai-research-writing/references/research-assistant.md#model-selection)
-- [结构化读论文框架](./awesome-ai-research-writing/references/paper-reading.md#structured-reading)
-- [论文分析（方法、实验、创新点）](./awesome-ai-research-writing/references/paper-reading.md#paper-analysis)
-- [科研专家（改模型代码与想点子）](./awesome-ai-research-writing/references/research-assistant.md#research-expert)
-- [加强版 AI 助手（查资料与联网核验）](./awesome-ai-research-writing/references/research-assistant.md#verified-assistant)
-- [科研绘图专家（三层级英文提示词）](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
-- [系统建模分析师（UML）](./awesome-ai-research-writing/references/diagram-and-modeling.md#uml-modeling)
-- [英语长难句翻译](./awesome-ai-research-writing/references/translation-and-humanize.md#long-sentence-translation)
-- [严格送审评议](./awesome-ai-research-writing/references/strict-review.md#strict-thesis-review)
+完整、可点击、与 skill 实际能力同步的权威目录请看：
+
+- [prompt-index.md](./awesome-ai-research-writing/references/prompt-index.md)
+
+常见能力可以按 4 组理解：
+
+- 翻译与改写：中转英、英转中、中转中、缩写、扩写、英文润色、中文润色、去 AI 味
+- 阅读与分析：结构化读论文、论文分析、实验分析、科研问答、科研专家
+- 审稿与决策：Reviewer 视角审视、严格送审评议、模型选择
+- 图示与建模：论文架构图、实验绘图推荐、图标题、表标题、UML 建模
 
 ## Part II: 论文写作相关的 Skills
 
@@ -120,7 +105,7 @@ awesome-ai-research-writing/
 
 ### 方式 1：手动安装
 
-复制到 `$CODEX_HOME/skills/`：
+Unix-like / macOS / Linux：
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
@@ -134,13 +119,32 @@ mkdir -p "$HOME/.codex/skills"
 cp -R awesome-ai-research-writing "$HOME/.codex/skills/"
 ```
 
+Windows PowerShell：
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+New-Item -ItemType Directory -Force -Path (Join-Path $codexHome "skills") | Out-Null
+Copy-Item -Recurse -Force ".\awesome-ai-research-writing" (Join-Path $codexHome "skills")
+```
+
 ### 方式 2：通过 Codex skill-installer 安装
 
-如果你的环境里已经有 Codex 的 `skill-installer`，可以直接从 GitHub 安装：
+如果你的环境里已经有 Codex 的 `skill-installer`，可以直接从 GitHub 安装。
+
+Unix-like / macOS / Linux：
 
 ```bash
 python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo zengrong233/awesome-ai-research-writing-skill \
+  --path awesome-ai-research-writing
+```
+
+Windows PowerShell：
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+python (Join-Path $codexHome "skills\.system\skill-installer\scripts\install-skill-from-github.py") `
+  --repo zengrong233/awesome-ai-research-writing-skill `
   --path awesome-ai-research-writing
 ```
 

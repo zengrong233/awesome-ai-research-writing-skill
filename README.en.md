@@ -31,33 +31,18 @@ This repository converts that style of content into a Codex-native package so th
 | Best use | Reading prompts, discovering tools | Direct writing, revision, review, and research-side workflows inside Codex |
 | Core adaptation | Prompt examples and workflow categories | Trigger description, routing rules, output contracts, references |
 
-## Part I: Prompt Collection
+## Part I: Prompt And Workflow Catalog
 
-- [Chinese to English](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-en)
-- [English to Chinese](./awesome-ai-research-writing/references/prompt-routing.md#en-to-cn)
-- [Chinese to Chinese rewriting](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-cn)
-- [Shorten](./awesome-ai-research-writing/references/prompt-routing.md#shorten)
-- [Expand](./awesome-ai-research-writing/references/prompt-routing.md#expand)
-- [English polishing](./awesome-ai-research-writing/references/prompt-routing.md#polish-en)
-- [Chinese polishing](./awesome-ai-research-writing/references/prompt-routing.md#polish-zh)
-- [Logic check](./awesome-ai-research-writing/references/prompt-routing.md#logic-check)
-- [De-AI for English LaTeX](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-latex-en)
-- [De-AI for Chinese Word-style text](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-word-zh)
-- [Paper architecture figure](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
-- [Experiment figure recommendation](./awesome-ai-research-writing/references/diagram-and-modeling.md#experiment-figure-recommendation)
-- [Figure title generation](./awesome-ai-research-writing/references/prompt-routing.md#figure-title)
-- [Table title generation](./awesome-ai-research-writing/references/prompt-routing.md#table-title)
-- [Experiment analysis](./awesome-ai-research-writing/references/prompt-routing.md#experiment-analysis)
-- [Reviewer-style full review](./awesome-ai-research-writing/references/strict-review.md#reviewer-review)
-- [Model selection](./awesome-ai-research-writing/references/research-assistant.md#model-selection)
-- [Structured paper reading](./awesome-ai-research-writing/references/paper-reading.md#structured-reading)
-- [Paper analysis](./awesome-ai-research-writing/references/paper-reading.md#paper-analysis)
-- [Research expert for code and ideas](./awesome-ai-research-writing/references/research-assistant.md#research-expert)
-- [Verified research assistant](./awesome-ai-research-writing/references/research-assistant.md#verified-assistant)
-- [Scientific figure prompt generator](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
-- [UML modeling analyst](./awesome-ai-research-writing/references/diagram-and-modeling.md#uml-modeling)
-- [Long English sentence translation](./awesome-ai-research-writing/references/translation-and-humanize.md#long-sentence-translation)
-- [Strict thesis submission review](./awesome-ai-research-writing/references/strict-review.md#strict-thesis-review)
+For the authoritative clickable catalog that stays aligned with the actual skill references, see:
+
+- [prompt-index.md](./awesome-ai-research-writing/references/prompt-index.md)
+
+The capability surface is easiest to think about in four groups:
+
+- Translation and rewriting: Chinese-English conversion, Chinese rewriting, shortening, expansion, polishing, and de-AI rewriting
+- Reading and analysis: structured paper reading, paper analysis, experiment analysis, verified Q&A, and research-improvement planning
+- Review and decision support: reviewer-style review, strict thesis review, and model selection
+- Figures and modeling: paper figures, experiment plot recommendation, figure/table titles, and UML-style modeling
 
 ## Part II: Related Skill Resources
 
@@ -90,7 +75,7 @@ Assume you are in the repository root.
 
 ### Option 1: Manual Install
 
-Copy the skill into `$CODEX_HOME/skills/`:
+Unix-like / macOS / Linux:
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
@@ -104,13 +89,32 @@ mkdir -p "$HOME/.codex/skills"
 cp -R awesome-ai-research-writing "$HOME/.codex/skills/"
 ```
 
+Windows PowerShell:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+New-Item -ItemType Directory -Force -Path (Join-Path $codexHome "skills") | Out-Null
+Copy-Item -Recurse -Force ".\awesome-ai-research-writing" (Join-Path $codexHome "skills")
+```
+
 ### Option 2: Install With The Codex Skill Installer
 
-If you already have the Codex `skill-installer` system skill available, install directly from GitHub:
+If you already have the Codex `skill-installer` system skill available, install directly from GitHub.
+
+Unix-like / macOS / Linux:
 
 ```bash
 python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo zengrong233/awesome-ai-research-writing-skill \
+  --path awesome-ai-research-writing
+```
+
+Windows PowerShell:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+python (Join-Path $codexHome "skills\.system\skill-installer\scripts\install-skill-from-github.py") `
+  --repo zengrong233/awesome-ai-research-writing-skill `
   --path awesome-ai-research-writing
 ```
 

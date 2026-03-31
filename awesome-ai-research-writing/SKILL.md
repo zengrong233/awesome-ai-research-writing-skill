@@ -90,13 +90,15 @@ Load `references/upstream-skills.md` when:
 
 ## Output Contracts
 
-1. For direct editing tasks, return the edited artifact first and the explanation second.
-2. For evaluation tasks, list concrete findings before summaries.
-3. For experiment analysis, tie every claim to an observed number or explicit trend.
-4. For paper analysis, distinguish author claims from your own interpretation.
-5. For figure-prompt tasks, output the prompt set cleanly and keep the Chinese explanation brief.
-6. For fact-verified answers, include concise source attribution after the answer.
-7. For strict review tasks, keep the verdict explicit and tie it to concrete deficiencies.
+1. For direct editing tasks, return the edited artifact first.
+2. If the task-specific reference defines an exact output-only format, follow that contract exactly and do not append extra explanation.
+3. Add explanation after the artifact only when the relevant reference allows it or the user asks for it.
+4. For evaluation tasks, list concrete findings before summaries.
+5. For experiment analysis, tie every claim to an observed number or explicit trend.
+6. For paper analysis, distinguish author claims from your own interpretation.
+7. For figure-prompt tasks, output the prompt set cleanly and keep the Chinese explanation brief.
+8. For fact-verified answers, include concise source attribution after the answer.
+9. For strict review tasks, keep the verdict explicit and tie it to concrete deficiencies.
 
 ## Related Skills
 
