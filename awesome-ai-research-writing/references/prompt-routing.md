@@ -1,97 +1,104 @@
 # Prompt Routing
 
-Use this file to map a user request to the right academic-writing behavior.
+Use this file to map common writing requests to the right academic-writing behavior.
+If the user asks for the old repository-style prompt directory, send them to `prompt-index.md`.
 
-## 1. Chinese Draft -> English LaTeX
+<a id="cn-to-en"></a>
+## 1. 中转英
 
 Use when the user provides Chinese notes, paragraphs, or method descriptions and wants English paper text.
 
 ### Do
 
 1. Translate and rewrite into natural academic English.
-2. Preserve formulas and technical names.
-3. Escape newly added LaTeX special characters.
-4. Keep the main output purely English.
+2. Preserve formulas, technical terms, and dataset or model names.
+3. Escape newly added LaTeX special characters if the target is LaTeX.
+4. Keep the main output purely English unless the user asks for bilingual output.
 
 ### Return
 
-1. `Part 1 [LaTeX]`: polished English content only.
-2. `Part 2 [Translation]`: concise Chinese back-translation for meaning check.
+1. `Part 1 [LaTeX / English]`: polished English content only.
+2. `Part 2 [解释]`: concise Chinese note or back-translation if helpful.
 
-## 2. English LaTeX -> Chinese Reading Version
+<a id="en-to-cn"></a>
+## 2. 英转中
 
-Use when the user wants to understand an English paper snippet rather than publish the Chinese output.
+Use when the user wants to understand English paper text rather than publish the Chinese output.
 
 ### Do
 
-1. Remove citation clutter if it harms readability.
-2. Explain formulas in readable Chinese when needed.
-3. Keep sentence alignment close to the original.
+1. Translate into readable Chinese instead of stiff word-for-word Chinese.
+2. Keep formulas and core terminology aligned with the original.
+3. Explain dense phrases when direct translation would hide the meaning.
 
 ### Return
 
-1. Pure Chinese reading text, unless the user asks for a structured dual-language output.
+1. Pure Chinese reading text, unless the user asks for side-by-side bilingual output.
 
-## 3. Chinese Draft -> Chinese Academic Prose
+<a id="cn-to-cn"></a>
+## 3. 中转中
 
-Use when the user has a rough Chinese draft for a thesis, report, or paper and wants it rewritten into formal academic Chinese.
+Use when the user has a rough Chinese draft and wants it rewritten into formal academic Chinese.
 
 ### Do
 
-1. Rebuild logic before sentence-level polishing.
-2. Merge fragments into one coherent paragraph per idea.
-3. Remove colloquial phrasing.
+1. Rebuild the logic before polishing the phrasing.
+2. Merge fragments into coherent academic paragraphs.
+3. Remove colloquial residue while preserving the author's meaning.
 
 ### Return
 
 1. `Part 1 [Refined Text]`: formal Chinese paragraph.
-2. `Part 2 [Logic Flow]`: short note on restructuring logic.
+2. `Part 2 [Logic Flow]`: short note on the restructuring.
 
-## 4. Shorten a Paragraph
+<a id="shorten"></a>
+## 4. 缩写
 
-Use when the user wants a small reduction in length without dropping core content.
+Use when the user wants the text shorter without losing technical content.
 
 ### Do
 
-1. Compress syntax rather than delete evidence.
-2. Keep numbers, conditions, and technical constraints.
+1. Compress syntax before deleting evidence.
+2. Keep numbers, constraints, and key comparisons.
 
 ### Return
 
 1. Shortened text.
-2. Short modification log if helpful.
+2. Optional one-line modification note.
 
-## 5. Expand a Paragraph
+<a id="expand"></a>
+## 5. 扩写
 
 Use when the user wants slightly more depth, smoother transitions, or fuller logic.
 
 ### Do
 
 1. Make implicit assumptions or causal links explicit.
-2. Do not invent new results or claims.
+2. Do not invent new results or unsupported claims.
 
 ### Return
 
 1. Expanded text.
 2. Brief note on what was added logically.
 
-## 6. English Academic Polishing
+<a id="polish-en"></a>
+## 6. 表达润色（英文论文）
 
 Use when the user already has English paper text and wants publication-quality rewriting.
 
 ### Do
 
-1. Prefer simple, standard academic vocabulary.
-2. Fix grammar, structure, and flow.
-3. Preserve domain abbreviations such as LLM or CNN unless the user requests expansion.
-4. Avoid unnecessary typographic emphasis.
+1. Prefer standard academic vocabulary over flashy wording.
+2. Fix grammar, structure, and paragraph flow.
+3. Preserve abbreviations such as CNN, LLM, mAP, or IoU unless expansion is requested.
 
 ### Return
 
 1. Polished English text first.
-2. Chinese explanation or back-translation second if useful.
+2. Brief Chinese explanation second if useful.
 
-## 7. Chinese Academic Polishing
+<a id="polish-zh"></a>
+## 7. 表达润色（中文论文）
 
 Use when the user has Chinese academic prose that is mostly correct but needs normalization.
 
@@ -99,14 +106,15 @@ Use when the user has Chinese academic prose that is mostly correct but needs no
 
 1. Modify only where necessary.
 2. Preserve the author's intended style if already publishable.
-3. Remove spoken-language residue and awkward Europeanized constructions.
+3. Remove spoken-language residue and awkward translated constructions.
 
 ### Return
 
 1. Refined text or unchanged text if already strong.
-2. Short review comment.
+2. Short review note.
 
-## 8. Logic Check
+<a id="logic-check"></a>
+## 8. 逻辑检查
 
 Use when the user asks whether a paragraph or section is logically sound.
 
@@ -114,43 +122,97 @@ Use when the user asks whether a paragraph or section is logically sound.
 
 1. Flag only substantive issues.
 2. Ignore optional style tweaks.
-3. Focus on contradiction, term drift, or meaning-breaking grammar.
+3. Focus on contradiction, term drift, missing premises, or meaning-breaking grammar.
 
 ### Return
 
 1. If clean: `[检测通过，无实质性问题]`
 2. If not clean: concise issue list with concrete fixes.
 
-## 9. Humanize / De-AI
+<a id="de-ai-latex-en"></a>
+## 9. 去 AI 味（LaTeX 英文）
 
-Use when the user says a paragraph sounds AI-generated, too smooth, too sales-like, or too generic.
+Use when English LaTeX paper text sounds too generic, too smooth, or too sales-like.
 
 ### Do
 
-1. Reduce slogan-like framing, repetitive parallelism, and inflated significance claims.
-2. Introduce more grounded sentence rhythm and clearer commitment.
-3. Preserve meaning rather than merely swapping adjectives.
+1. Preserve LaTeX commands, labels, citations, and formulas.
+2. Reduce slogan-like framing and exaggerated significance claims.
+3. Prefer shorter, more grounded academic sentences.
 
 ### Return
 
-1. Natural revised text.
-2. Optional note on what AI-like signals were removed.
+1. Natural revised LaTeX text.
+2. Optional short note on what was toned down.
 
-## 10. Figure Title / Table Title / Caption
+For deeper rules and the Chinese de-AI variant, read `translation-and-humanize.md`.
 
-Use when the user wants publication-ready labels for figures or tables.
+<a id="de-ai-word-zh"></a>
+## 10. 去 AI 味（Word 中文）
+
+Use when Chinese Word-style prose sounds template-driven or overly machine-generated.
+
+Load `translation-and-humanize.md#de-ai-word-zh` for the detailed style constraints and substitutions.
+
+### Return
+
+1. Natural revised Chinese text with the same technical meaning.
+
+<a id="paper-figure-outline"></a>
+## 11. 论文架构图
+
+Use when the user wants a publishable method figure or architecture diagram prompt.
+
+Load `diagram-and-modeling.md#paper-figure-prompts`.
+
+### Return
+
+1. Level 1 / Level 2 / Level 3 English prompts.
+2. Short Chinese explanation of what each level is for.
+
+<a id="experiment-figure-recommendation"></a>
+## 12. 实验绘图推荐
+
+Use when the user asks which plots to draw for ablations, comparisons, trends, or error analysis.
+
+Load `diagram-and-modeling.md#experiment-figure-recommendation`.
+
+### Return
+
+1. Recommended figure types.
+2. What each figure helps prove.
+
+<a id="figure-title"></a>
+## 13. 生成图的标题
+
+Use when the user wants publication-ready figure titles or captions.
 
 ### Do
 
-1. Keep titles short and direct.
-2. Use common academic patterns such as `Comparison With ...`, `Ablation Study on ...`, or `Results on ...`.
+1. Keep the title short and direct.
+2. Use academic patterns such as `Overview of ...`, `Comparison of ...`, or `Ablation of ...`.
 3. Avoid filler phrases like `The figure shows`.
 
 ### Return
 
-1. Final title or caption text only, unless the user asks for multiple options.
+1. Final figure title or caption only, unless options are requested.
 
-## 11. Experiment Analysis
+<a id="table-title"></a>
+## 14. 生成表的标题
+
+Use when the user wants table titles or table captions for a paper.
+
+### Do
+
+1. Mention the dataset, task, or comparison target when needed.
+2. Keep titles publishable rather than conversational.
+
+### Return
+
+1. Final table title or caption only, unless options are requested.
+
+<a id="experiment-analysis"></a>
+## 15. 实验分析
 
 Use when the user provides result tables, CSV-like data, or metric comparisons and wants a paper paragraph.
 
@@ -162,28 +224,29 @@ Use when the user provides result tables, CSV-like data, or metric comparisons a
 
 ### Return
 
-1. Paper-ready analysis paragraph, optionally in LaTeX if the user is writing a paper.
-2. Supporting explanation in Chinese if needed.
+1. Paper-ready analysis paragraph, optionally in LaTeX if needed.
+2. Supporting Chinese explanation if useful.
 
-## 12. Reviewer-Style Full-Paper Review
+<a id="reviewer-review"></a>
+## 16. 论文整体以 Reviewer 视角进行审视
 
-Use when the user wants a strict paper review, submission risk scan, or rebuttal-oriented diagnosis.
+Use when the user wants a reviewer-style diagnosis of a section, paper, or submission package.
 
-### Do
-
-1. Summarize the claimed contribution in one sentence.
-2. Separate strengths from critical weaknesses.
-3. Distinguish fixable writing issues from structural method or experiment gaps.
+Load `strict-review.md#reviewer-review`.
 
 ### Return
 
-1. `Part 1 [The Review Report]`
-2. `Part 2 [Strategic Advice]`
+1. Concrete findings first.
+2. Revision priorities second.
 
-## 13. When the User Wants Prompts Instead of Work
+<a id="model-selection"></a>
+## 17. 模型选择
 
-If the user explicitly asks for a reusable prompt:
+Use when the user wants help choosing among candidate model directions, backbones, or improvement routes.
 
-1. Return a prompt template rather than executing the task.
-2. Keep placeholders explicit, such as `[paste paragraph here]`.
-3. State the target language and expected output format in the prompt itself.
+Load `research-assistant.md#model-selection`.
+
+### Return
+
+1. Option comparison.
+2. Recommended choice with trade-offs.

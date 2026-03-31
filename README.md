@@ -6,9 +6,9 @@
 
 [English README](./README.en.md)
 
-把一个“提示词合集 / skills 导航型项目”改造成 Codex 可直接安装和触发的 skill 包。
+把一个“提示词合集 / skills 导航型项目”改造成 Codex 可直接安装、可直接触发、可继续扩展的学术研究 skill 包。
 
-这个仓库基于 [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) 的任务分类和工作流思路，重新组织为 Codex 可识别的 `SKILL.md` 结构。
+这个仓库基于 [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) 的任务分类思路继续整理，并把你新增的科研 prompt 一并沉淀到了 `references/` 中，方便 Codex 按需加载。
 
 ## 这个仓库解决什么问题
 
@@ -22,9 +22,9 @@
 
 这个仓库做的事情是把这些内容转换成 Codex 原生格式，让 Codex 能直接：
 
-- 自动识别论文写作类请求
-- 直接执行写作、改写、翻译、审稿式检查
-- 用 `references/` 管理任务细节，而不是把所有内容塞进一个超长 README
+- 自动识别论文写作、论文分析、审稿、翻译、科研绘图等请求
+- 直接执行任务，而不是只返回一段提示词
+- 用 `references/` 管理不同 prompt 工作流，避免把全部内容堆在一个超长 README 里
 
 ## 原项目与本仓库的区别
 
@@ -33,33 +33,43 @@
 | 主要形态 | README 提示词合集 | 标准 Codex skill 包 |
 | 能否直接装进 Codex | 不能 | 可以 |
 | 是否依赖 `SKILL.md` 触发 | 否 | 是 |
-| 最适合的用途 | 阅读 prompt、找工具 | 在 Codex 中直接完成写作任务 |
-| 核心改造 | 提示词与分类思路 | 触发描述、路由规则、输出约定、references |
+| 最适合的用途 | 阅读 prompt、找工具 | 在 Codex 中直接完成研究与写作任务 |
+| 核心改造 | 提示词与分类思路 | 触发描述、路由规则、输出约定、reference prompt 库 |
 
-## 常见提示词 / 触发示例
+## Part I: 写作 Prompt 集合
 
-适合处理这些高频科研写作任务：
+- [中转英](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-en)
+- [英转中](./awesome-ai-research-writing/references/prompt-routing.md#en-to-cn)
+- [中转中](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-cn)
+- [缩写](./awesome-ai-research-writing/references/prompt-routing.md#shorten)
+- [扩写](./awesome-ai-research-writing/references/prompt-routing.md#expand)
+- [表达润色（英文论文）](./awesome-ai-research-writing/references/prompt-routing.md#polish-en)
+- [表达润色（中文论文）](./awesome-ai-research-writing/references/prompt-routing.md#polish-zh)
+- [逻辑检查](./awesome-ai-research-writing/references/prompt-routing.md#logic-check)
+- [去 AI 味（LaTeX 英文）](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-latex-en)
+- [去 AI 味（Word 中文）](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-word-zh)
+- [论文架构图](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
+- [实验绘图推荐](./awesome-ai-research-writing/references/diagram-and-modeling.md#experiment-figure-recommendation)
+- [生成图的标题](./awesome-ai-research-writing/references/prompt-routing.md#figure-title)
+- [生成表的标题](./awesome-ai-research-writing/references/prompt-routing.md#table-title)
+- [实验分析](./awesome-ai-research-writing/references/prompt-routing.md#experiment-analysis)
+- [论文整体以 Reviewer 视角进行审视](./awesome-ai-research-writing/references/strict-review.md#reviewer-review)
+- [模型选择](./awesome-ai-research-writing/references/research-assistant.md#model-selection)
+- [结构化读论文框架](./awesome-ai-research-writing/references/paper-reading.md#structured-reading)
+- [论文分析（方法、实验、创新点）](./awesome-ai-research-writing/references/paper-reading.md#paper-analysis)
+- [科研专家（改模型代码与想点子）](./awesome-ai-research-writing/references/research-assistant.md#research-expert)
+- [加强版 AI 助手（查资料与联网核验）](./awesome-ai-research-writing/references/research-assistant.md#verified-assistant)
+- [科研绘图专家（三层级英文提示词）](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
+- [系统建模分析师（UML）](./awesome-ai-research-writing/references/diagram-and-modeling.md#uml-modeling)
+- [英语长难句翻译](./awesome-ai-research-writing/references/translation-and-humanize.md#long-sentence-translation)
+- [严格送审评议](./awesome-ai-research-writing/references/strict-review.md#strict-thesis-review)
 
-- 中文草稿 -> 英文学术 LaTeX
-- 英文 LaTeX -> 可读中文
-- 中文论文段落重写
-- 英文学术润色
-- 缩写或扩写段落
-- 去 AI 味 / humanize
-- 逻辑检查
-- 图标题、表标题、caption
-- 实验分析写作
-- reviewer 视角的论文审查
+## Part II: 论文写作相关的 Skills
 
-直接在 Codex 中输入类似下面的话即可：
-
-```text
-Use $awesome-ai-research-writing to rewrite this Chinese method draft into English LaTeX.
-Use $awesome-ai-research-writing to polish this Introduction and remove AI-sounding phrasing.
-Use $awesome-ai-research-writing to shorten this paragraph by about 10 words without losing technical meaning.
-Use $awesome-ai-research-writing to analyze the following experiment table in paper style.
-Use $awesome-ai-research-writing to review this paper section from a strict reviewer perspective.
-```
+- [Skills 的配置](./awesome-ai-research-writing/SKILL.md)
+- [Skills 总览](./awesome-ai-research-writing/references/prompt-index.md)
+- [使用场景与示例 Prompt](./awesome-ai-research-writing/references/prompt-index.md#usage-examples)
+- [上游 Skills 与衔接建议](./awesome-ai-research-writing/references/upstream-skills.md)
 
 ## 仓库结构
 
@@ -69,7 +79,13 @@ awesome-ai-research-writing/
 ├── agents/
 │   └── openai.yaml
 └── references/
+    ├── prompt-index.md
     ├── prompt-routing.md
+    ├── paper-reading.md
+    ├── research-assistant.md
+    ├── diagram-and-modeling.md
+    ├── translation-and-humanize.md
+    ├── strict-review.md
     └── upstream-skills.md
 ```
 
@@ -79,9 +95,20 @@ awesome-ai-research-writing/
   - 定义 skill 的能力边界
   - 告诉 Codex 在什么场景触发
   - 规定核心工作流和输出规则
+- `references/prompt-index.md`
+  - 提供目录式 prompt 入口和示例调用
 - `references/prompt-routing.md`
-  - 负责把用户需求路由到正确的写作行为
-  - 把翻译、润色、缩写、扩写、实验分析、review 等细节从主 skill 文件里拆出来
+  - 负责核心写作任务路由
+- `references/paper-reading.md`
+  - 负责结构化读论文和系统性论文分析
+- `references/research-assistant.md`
+  - 负责科研问答、模型改进、模型选择
+- `references/diagram-and-modeling.md`
+  - 负责论文配图提示词和 UML 建模
+- `references/translation-and-humanize.md`
+  - 负责长难句翻译和去 AI 味改写
+- `references/strict-review.md`
+  - 负责 reviewer 风格审查和送审评议
 - `references/upstream-skills.md`
   - 说明什么时候应该优先使用更专业的上游 skill
 - `agents/openai.yaml`
@@ -129,27 +156,7 @@ python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-gi
 - 工作流规则
 - 输出约定
 
-更细的任务细节放在 `references/` 中按需加载，这样更接近真实可用的 skill 包，而不是单纯的提示词堆叠。
-
-## 与上游 skills 的关系
-
-这个仓库并不想替代所有更强的专业写作 skill。
-它更像一层适合 Codex 的“双语学术写作路由器”。
-
-尤其适合：
-
-- 翻译
-- 段落改写
-- 论文润色
-- reviewer 视角检查
-
-如果任务更深、更专门，也可以继续衔接这些上游 skill：
-
-- `research-paper-writing`
-- `humanizer`
-- `docx`
-- `doc-coauthoring`
-- `canvas-design`
+更细的 prompt 和工作流放在 `references/` 中按需加载，这样更接近真实可用的 skill 包，而不是单纯的提示词堆叠。
 
 ## 致谢与说明
 

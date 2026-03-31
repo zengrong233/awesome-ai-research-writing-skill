@@ -6,9 +6,9 @@
 
 [中文 README](./README.md)
 
-Turn a prompt-library style academic writing project into a real Codex skill package.
+Turn a prompt-library style academic writing project into a real Codex skill package, then extend it with reusable prompts for paper reading, review, translation, diagram planning, and research-side analysis.
 
-This repository adapts the ideas and workflow categories from [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) into a format that Codex can discover and use directly through `SKILL.md`.
+This repository adapts the workflow categories from [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) into a Codex-native structure and adds a larger prompt library under `references/`.
 
 ## Why This Exists
 
@@ -16,10 +16,10 @@ The original project is strong as a prompt collection and a curated index of wri
 
 This repository converts that style of content into a Codex-native package so the agent can:
 
-- route academic writing tasks automatically
-- perform the writing task directly instead of only returning a prompt template
-- support bilingual Chinese-English paper writing
-- keep detailed task logic in `references/` without bloating the main skill file
+- route academic writing and analysis tasks automatically
+- complete the task directly instead of only returning a prompt template
+- support bilingual Chinese-English research workflows
+- keep specialized prompt logic in `references/` without bloating the main skill file
 
 ## Original Project vs This Repository
 
@@ -28,27 +28,45 @@ This repository converts that style of content into a Codex-native package so th
 | Main form | README-style prompt collection | Standard Codex skill package |
 | Directly installable in Codex | No | Yes |
 | Triggered by `SKILL.md` | No | Yes |
-| Best use | Reading prompts, discovering tools | Direct writing, revision, and review inside Codex |
+| Best use | Reading prompts, discovering tools | Direct writing, revision, review, and research-side workflows inside Codex |
 | Core adaptation | Prompt examples and workflow categories | Trigger description, routing rules, output contracts, references |
 
-## What The Skill Covers
+## Part I: Prompt Collection
 
-The skill is designed for common academic writing tasks such as:
+- [Chinese to English](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-en)
+- [English to Chinese](./awesome-ai-research-writing/references/prompt-routing.md#en-to-cn)
+- [Chinese to Chinese rewriting](./awesome-ai-research-writing/references/prompt-routing.md#cn-to-cn)
+- [Shorten](./awesome-ai-research-writing/references/prompt-routing.md#shorten)
+- [Expand](./awesome-ai-research-writing/references/prompt-routing.md#expand)
+- [English polishing](./awesome-ai-research-writing/references/prompt-routing.md#polish-en)
+- [Chinese polishing](./awesome-ai-research-writing/references/prompt-routing.md#polish-zh)
+- [Logic check](./awesome-ai-research-writing/references/prompt-routing.md#logic-check)
+- [De-AI for English LaTeX](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-latex-en)
+- [De-AI for Chinese Word-style text](./awesome-ai-research-writing/references/translation-and-humanize.md#de-ai-word-zh)
+- [Paper architecture figure](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
+- [Experiment figure recommendation](./awesome-ai-research-writing/references/diagram-and-modeling.md#experiment-figure-recommendation)
+- [Figure title generation](./awesome-ai-research-writing/references/prompt-routing.md#figure-title)
+- [Table title generation](./awesome-ai-research-writing/references/prompt-routing.md#table-title)
+- [Experiment analysis](./awesome-ai-research-writing/references/prompt-routing.md#experiment-analysis)
+- [Reviewer-style full review](./awesome-ai-research-writing/references/strict-review.md#reviewer-review)
+- [Model selection](./awesome-ai-research-writing/references/research-assistant.md#model-selection)
+- [Structured paper reading](./awesome-ai-research-writing/references/paper-reading.md#structured-reading)
+- [Paper analysis](./awesome-ai-research-writing/references/paper-reading.md#paper-analysis)
+- [Research expert for code and ideas](./awesome-ai-research-writing/references/research-assistant.md#research-expert)
+- [Verified research assistant](./awesome-ai-research-writing/references/research-assistant.md#verified-assistant)
+- [Scientific figure prompt generator](./awesome-ai-research-writing/references/diagram-and-modeling.md#paper-figure-prompts)
+- [UML modeling analyst](./awesome-ai-research-writing/references/diagram-and-modeling.md#uml-modeling)
+- [Long English sentence translation](./awesome-ai-research-writing/references/translation-and-humanize.md#long-sentence-translation)
+- [Strict thesis submission review](./awesome-ai-research-writing/references/strict-review.md#strict-thesis-review)
 
-- Chinese draft -> English LaTeX
-- English LaTeX -> readable Chinese
-- Chinese academic rewriting
-- English academic polishing
-- shortening or expanding a paragraph
-- de-AI / humanizing text
-- logic checking
-- figure titles, table titles, and captions
-- experiment analysis
-- reviewer-style paper assessment
+## Part II: Related Skill Resources
+
+- [Skill configuration](./awesome-ai-research-writing/SKILL.md)
+- [Prompt catalog](./awesome-ai-research-writing/references/prompt-index.md)
+- [Usage examples](./awesome-ai-research-writing/references/prompt-index.md#usage-examples)
+- [Upstream skill handoff advice](./awesome-ai-research-writing/references/upstream-skills.md)
 
 ## Repository Overview
-
-This repository currently provides one installable skill package:
 
 ```text
 awesome-ai-research-writing/
@@ -56,23 +74,15 @@ awesome-ai-research-writing/
 ├── agents/
 │   └── openai.yaml
 └── references/
+    ├── prompt-index.md
     ├── prompt-routing.md
+    ├── paper-reading.md
+    ├── research-assistant.md
+    ├── diagram-and-modeling.md
+    ├── translation-and-humanize.md
+    ├── strict-review.md
     └── upstream-skills.md
 ```
-
-### File Roles
-
-- `SKILL.md`
-  - defines what the skill does
-  - tells Codex when to trigger it
-  - provides core workflow and output rules
-- `references/prompt-routing.md`
-  - maps user requests to the right writing behavior
-  - keeps task-specific details out of the main skill file
-- `references/upstream-skills.md`
-  - explains when to prefer stronger specialized skills such as `research-paper-writing`, `humanizer`, `docx`, `doc-coauthoring`, and `canvas-design`
-- `agents/openai.yaml`
-  - provides Codex UI metadata
 
 ## Installation
 
@@ -106,50 +116,17 @@ python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-gi
 
 After installation, restart Codex to pick up the new skill.
 
-## Quick Start
-
-Use `$awesome-ai-research-writing` to draft, polish, translate, or review academic writing.
-
-Examples:
-
-- `Use $awesome-ai-research-writing to rewrite this Chinese method draft into English LaTeX.`
-- `Use $awesome-ai-research-writing to polish this Introduction and remove AI-sounding phrasing.`
-- `Use $awesome-ai-research-writing to shorten this paragraph by about 10 words without losing technical meaning.`
-- `Use $awesome-ai-research-writing to analyze the following experiment table in paper style.`
-- `Use $awesome-ai-research-writing to review this paper section from a strict reviewer perspective.`
-
 ## Design Principles
 
 This skill intentionally keeps `SKILL.md` lean.
 
-The main file contains:
+The main file only keeps:
 
 - trigger description
 - workflow guidance
 - output contracts
 
-The details live in `references/`, so Codex can load them only when needed.
-This keeps the skill closer to a real production package than to a long prompt dump.
-
-## Relationship to Upstream Skills
-
-This repository does not try to replace every specialized writing skill.
-Instead, it acts as a practical bilingual writing-and-routing layer for Codex.
-
-It is especially useful when the user wants direct help on:
-
-- translation
-- paragraph rewriting
-- academic polishing
-- reviewer-style diagnosis
-
-For deeper workflows, the skill can defer to stronger upstream tools such as:
-
-- `research-paper-writing`
-- `humanizer`
-- `docx`
-- `doc-coauthoring`
-- `canvas-design`
+Detailed prompt logic lives in `references/`, so Codex can load it on demand instead of carrying everything in one oversized skill file.
 
 ## Attribution
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "Awesome AI Research Writing"
-  short_description: "Academic writing workflows and bilingual paper editing"
-  default_prompt: "Use $awesome-ai-research-writing to draft, polish, translate, or review an academic paper section."
+  short_description: "Paper writing, analysis, review, translation, and research-side workflows"
+  default_prompt: "Use $awesome-ai-research-writing to draft, analyze, translate, review, or plan figures for an academic paper."
