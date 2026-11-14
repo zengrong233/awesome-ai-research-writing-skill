@@ -1,110 +1,115 @@
 # Awesome AI Research Writing Skill for Codex
 
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-0A66C2)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
-[![Validation](https://img.shields.io/badge/quick__validate-passing-2EA043)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 [![GitHub stars](https://img.shields.io/github/stars/zengrong233/awesome-ai-research-writing-skill?style=social)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 
-[中文 README](./README.md)
+[中文主页](README.md)
 
-Turn a prompt-library style academic writing project into a real Codex skill package, then extend it with reusable prompts for paper reading, review, translation, diagram planning, and research-side analysis.
-
-This repository adapts the workflow categories from [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) into a Codex-native structure and adds a larger prompt library under `references/`.
+A Codex skill for bilingual academic writing, paper reading and review, research presentations, quantitative plots, and method diagrams. It completes the requested task directly; reusable prompts are returned when explicitly requested.
 
 ## Why This Exists
 
-The original project is strong as a prompt collection and a curated index of writing-related skills, but it is not a Codex-installable skill by itself.
+Carry the same evidence and formatting rules across research outputs:
 
-This repository converts that style of content into a Codex-native package so the agent can:
+| Work | Capabilities |
+| --- | --- |
+| Paper writing | Chinese/English translation, rewriting, polishing, target-based shortening/expansion, logic checks, captions, and result analysis |
+| Reading and research | Guided reading, method/experiment analysis, verified Q&A, model selection, and improvement experiments |
+| Review | Reviewer reports and thesis readiness assessments scoped to the supplied evidence |
+| Research PPT | Journal clubs, group meetings, defenses, and conference talks; source-grounded stories, timing, editable PPTX, attribution, and speaker notes |
+| Scientific figures | Comparisons, ablations, distributions, multi-panel results, framework diagrams, and training/inference paths; editable source, exports, and final-size inspection |
+| Prompts and modeling | Three-level English figure prompts, chart recommendations, and UML |
 
-- route academic writing and analysis tasks automatically
-- complete the task directly instead of only returning a prompt template
-- support bilingual Chinese-English research workflows
-- keep specialized prompt logic in `references/` without bloating the main skill file
+Preserve equations, citation keys, values, units, and uncertainty. Distinguish editable translations from reading versions. Follow the requested length rather than a fixed word adjustment, and limit judgments when full manuscripts or statistical evidence are unavailable.
 
 ## Original Project vs This Repository
 
-| Item | Original Project | This Repository |
-| --- | --- | --- |
-| Main form | README-style prompt collection | Standard Codex skill package |
-| Directly installable in Codex | No | Yes |
-| Triggered by `SKILL.md` | No | Yes |
-| Best use | Reading prompts, discovering tools | Direct writing, revision, review, and research-side workflows inside Codex |
-| Core adaptation | Prompt examples and workflow categories | Trigger description, routing rules, output contracts, references |
+This package builds on the task taxonomy of [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing), organizing workflows into an installable `SKILL.md` and references loaded on demand. It adds research presentations and scientific figures. Consult the original repository for its current capabilities and rights status.
 
 ## Part I: Prompt And Workflow Catalog
 
-For the authoritative clickable catalog that stays aligned with the actual skill references, see:
+The [workflow catalog](awesome-ai-research-writing/references/prompt-index.md) is the single index of all routes, legacy prompt entries, and examples.
 
-- [prompt-index.md](./awesome-ai-research-writing/references/prompt-index.md)
+```text
+Use $awesome-ai-research-writing to translate this method draft into English LaTeX. Preserve equations and citations; return only the text.
+Use $awesome-ai-research-writing to turn this paper into a 12-minute journal-club PPT. Deliver editable PPTX with source attribution and speaker notes.
+Use $awesome-ai-research-writing to plot this CSV comparison, showing raw observations and defining uncertainty. Deliver source, SVG, and PNG.
+Use $awesome-ai-research-writing to draw an editable framework figure from the Method and code, distinguishing training from inference.
+```
 
-The capability surface is easiest to think about in four groups:
-
-- Translation and rewriting: Chinese-English conversion, Chinese rewriting, shortening, expansion, polishing, and de-AI rewriting
-- Reading and analysis: structured paper reading, paper analysis, experiment analysis, verified Q&A, and research-improvement planning
-- Review and decision support: reviewer-style review, strict thesis review, and model selection
-- Figures and modeling: paper figures, experiment plot recommendation, figure/table titles, and UML-style modeling
+Outline-only, recommendation-only, and prompt-only requests are supported. For an existing deck, specify the target slides and what must be preserved.
 
 ## Part II: Related Skill Resources
 
-- [Skill configuration](./awesome-ai-research-writing/SKILL.md)
-- [Prompt catalog](./awesome-ai-research-writing/references/prompt-index.md)
-- [Usage examples](./awesome-ai-research-writing/references/prompt-index.md#usage-examples)
-- [Upstream skill handoff advice](./awesome-ai-research-writing/references/upstream-skills.md)
+- [Skill entry and routing](awesome-ai-research-writing/SKILL.md)
+- [Research presentations](awesome-ai-research-writing/references/research-presentations.md)
+- [Scientific data figures](awesome-ai-research-writing/references/scientific-data-figures.md)
+- [Framework figures](awesome-ai-research-writing/references/framework-figures.md)
+- [Reference projects, license evidence, and specialized tools](awesome-ai-research-writing/references/upstream-skills.md)
+
+This package supplies instructions, not bundled slide renderers, Python/R plotting libraries, or image services. It uses tools or specialized skills available in the current environment. For file requests, create the actual artifact and inspect rendered output when possible. If a capability is missing, deliver usable source or a plan and identify the exact export or visual check still incomplete.
 
 ## Repository Overview
 
 ```text
 awesome-ai-research-writing/
 ├── SKILL.md
-├── agents/
-│   └── openai.yaml
+├── agents/openai.yaml
 └── references/
     ├── prompt-index.md
     ├── prompt-routing.md
     ├── paper-reading.md
     ├── research-assistant.md
-    ├── diagram-and-modeling.md
-    ├── translation-and-humanize.md
     ├── strict-review.md
+    ├── translation-and-humanize.md
+    ├── research-presentations.md
+    ├── scientific-data-figures.md
+    ├── framework-figures.md
+    ├── diagram-and-modeling.md
     └── upstream-skills.md
 ```
 
-## Installation
+The installable unit remains `awesome-ai-research-writing/`; other directories do not belong in the skills installation.
 
-Assume you are in the repository root.
+## Installation
 
 ### Option 1: Manual Install
 
-Unix-like / macOS / Linux:
+Run from the repository root. Back up and replace an existing installation deliberately to avoid mixing old and new files.
+
+macOS / Linux:
 
 ```bash
-mkdir -p "$CODEX_HOME/skills"
-cp -R awesome-ai-research-writing "$CODEX_HOME/skills/"
-```
-
-If `CODEX_HOME` is unset, use the default Codex directory:
-
-```bash
-mkdir -p "$HOME/.codex/skills"
-cp -R awesome-ai-research-writing "$HOME/.codex/skills/"
+skill_home="${CODEX_HOME:-$HOME/.codex}"
+skill_target="$skill_home/skills/awesome-ai-research-writing"
+if [ -e "$skill_target" ] || [ -L "$skill_target" ]; then
+  printf '%s\n' "Skill already exists: $skill_target. Back it up and move it before installing." >&2
+  exit 1
+fi
+mkdir -p "$skill_home/skills"
+cp -R awesome-ai-research-writing "$skill_target"
 ```
 
 Windows PowerShell:
 
 ```powershell
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
-New-Item -ItemType Directory -Force -Path (Join-Path $codexHome "skills") | Out-Null
-Copy-Item -Recurse -Force ".\awesome-ai-research-writing" (Join-Path $codexHome "skills")
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+$skillTarget = Join-Path $skillHome 'skills/awesome-ai-research-writing'
+if (Test-Path -LiteralPath $skillTarget) {
+    throw "Skill already exists: $skillTarget. Back it up and move it before installing."
+}
+New-Item -ItemType Directory -Force -Path (Join-Path $skillHome 'skills') -ErrorAction Stop | Out-Null
+Copy-Item -Recurse '.\awesome-ai-research-writing' -Destination $skillTarget -ErrorAction Stop
 ```
 
 ### Option 2: Install With The Codex Skill Installer
 
-If you already have the Codex `skill-installer` system skill available, install directly from GitHub.
+Use when `skill-installer` is available. This installs the published remote version; use manual installation for local changes.
 
-Unix-like / macOS / Linux:
+macOS / Linux:
 
 ```bash
-python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
+python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo zengrong233/awesome-ai-research-writing-skill \
   --path awesome-ai-research-writing
 ```
@@ -112,36 +117,37 @@ python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-gi
 Windows PowerShell:
 
 ```powershell
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
-python (Join-Path $codexHome "skills\.system\skill-installer\scripts\install-skill-from-github.py") `
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+python (Join-Path $skillHome 'skills\.system\skill-installer\scripts\install-skill-from-github.py') `
   --repo zengrong233/awesome-ai-research-writing-skill `
   --path awesome-ai-research-writing
 ```
 
-After installation, restart Codex to pick up the new skill.
+Restart Codex after installation and invoke `$awesome-ai-research-writing`.
 
 ## Design Principles
 
-This skill intentionally keeps `SKILL.md` lean.
+Keep shared rules and routing in the entrypoint; load detailed workflows on demand. User formats and templates take precedence. Editing does not force back-translation or logs. Quantitative panels and schematic panels use distinct evidence rules. Editability, export success, and visual verification depend on the actual delivered files.
 
-The main file only keeps:
+Maintainers can run the installed skill-creator validator (Python and PyYAML required):
 
-- trigger description
-- workflow guidance
-- output contracts
+```bash
+python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" awesome-ai-research-writing
+```
 
-Detailed prompt logic lives in `references/`, so Codex can load it on demand instead of carrying everything in one oversized skill file.
+Windows PowerShell:
+
+```powershell
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+python (Join-Path $skillHome 'skills/.system/skill-creator/scripts/quick_validate.py') .\awesome-ai-research-writing
+```
+
+Also check local links, legacy anchors, UI metadata, and representative tasks. Package validation does not replace visual inspection of generated decks or figures.
 
 ## Attribution
 
-This repository is an adaptation of the ideas, task categories, and workflow intent from:
-
-- [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing)
-
-It does not aim to replace the original repository.
-It exists to convert that style of material into a Codex-friendly skill package format.
+The writing taxonomy references Leey21's original collection. Presentation and figure workflows draw design lessons from [Nature Skills](https://github.com/Yuan1z0825/nature-skills), [Paper Framework Figure Studio Pro](https://github.com/c-narcissus/paper-framework-figure-studio-pro), and [SciPilot Figure](https://github.com/Haojae/scipilot-figure-skill). Inspected revisions, adaptation scope, and license evidence are recorded in [provenance](awesome-ai-research-writing/references/upstream-skills.md#reference-projects). Their runtimes and assets are not bundled.
 
 ## License
 
-This repository includes original packaging work for Codex plus adapted structure inspired by upstream material.
-See [LICENSE](./LICENSE) for the exact scope and limitations.
+See [LICENSE](LICENSE) for original packaging rights and the upstream-material limitation. Each referenced project's license applies to its own material; it does not establish a single license for all historical content here.

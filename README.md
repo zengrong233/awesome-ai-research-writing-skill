@@ -1,140 +1,117 @@
 # Awesome AI Research Writing Skill for Codex
 
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-0A66C2)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
-[![Validation](https://img.shields.io/badge/quick__validate-passing-2EA043)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 [![GitHub stars](https://img.shields.io/github/stars/zengrong233/awesome-ai-research-writing-skill?style=social)](https://github.com/zengrong233/awesome-ai-research-writing-skill)
 
-[English README](./README.en.md)
+[English README](README.en.md)
 
-把一个“提示词合集 / skills 导航型项目”改造成 Codex 可直接安装、可直接触发、可继续扩展的学术研究 skill 包。
-
-这个仓库基于 [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) 的任务分类思路继续整理，并把你新增的科研 prompt 一并沉淀到了 `references/` 中，方便 Codex 按需加载。
+面向中英文学术研究的 Codex skill：从论文写作、翻译、阅读和审稿，到科研 PPT、实验数据图和方法框架图。默认直接完成任务；明确要求提示词时才返回模板。
 
 ## 这个仓库解决什么问题
 
-原项目非常适合：
+让研究材料沿同一套证据与格式规则进入不同成果：
 
-- 查阅论文写作 prompt
-- 了解常见写作场景
-- 发现其他好用的写作类 skills
+| 工作 | 能力 |
+| --- | --- |
+| 论文写作 | 中英互译、中文改写、润色、按目标缩写/扩写、逻辑检查、图表标题与实验分析 |
+| 阅读与研究 | 结构化读论文、方法与实验分析、资料核验、模型选择和改进实验设计 |
+| 审稿 | Reviewer 报告、送审评议；结论与实际提供的材料范围一致 |
+| 科研 PPT | 文献汇报、组会、答辩、会议报告；证据故事线、时间安排、可编辑 PPTX、来源与演讲备注 |
+| 科研论文绘图 | 数据对比、消融、分布与多面板图；方法框架图、训练/推理路径；源码、成图与最终尺寸检查 |
+| 提示词与建模 | 三层级英文绘图提示词、实验选图建议、UML |
 
-但它本身不是一个可以被 Codex 直接安装的标准 skill 包。
-
-这个仓库做的事情是把这些内容转换成 Codex 原生格式，让 Codex 能直接：
-
-- 自动识别论文写作、论文分析、审稿、翻译、科研绘图等请求
-- 直接执行任务，而不是只返回一段提示词
-- 用 `references/` 管理不同 prompt 工作流，避免把全部内容堆在一个超长 README 里
+保留公式、引用键、数值、单位和不确定性。翻译区分可编辑稿与阅读版；缩写不再固定减少几个单词；缺少全文或统计证据时说明可判断范围。
 
 ## 原项目与本仓库的区别
 
-| 项目 | 原项目 | 本仓库 |
-| --- | --- | --- |
-| 主要形态 | README 提示词合集 | 标准 Codex skill 包 |
-| 能否直接装进 Codex | 不能 | 可以 |
-| 是否依赖 `SKILL.md` 触发 | 否 | 是 |
-| 最适合的用途 | 阅读 prompt、找工具 | 在 Codex 中直接完成研究与写作任务 |
-| 核心改造 | 提示词与分类思路 | 触发描述、路由规则、输出约定、reference prompt 库 |
+本仓库沿用 [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) 的写作任务分类，将工作流整理为可安装的 `SKILL.md` 与按需加载的参考文件，并扩展科研演示和论文绘图能力。原项目的当前能力与授权以其仓库为准。
 
 ## Part I: Prompt 与工作流目录
 
-完整、可点击、与 skill 实际能力同步的权威目录请看：
+完整入口、旧提示词条目与调用示例统一维护在 [工作流目录](awesome-ai-research-writing/references/prompt-index.md)。
 
-- [prompt-index.md](./awesome-ai-research-writing/references/prompt-index.md)
+快速使用：
 
-常见能力可以按 4 组理解：
+```text
+用 $awesome-ai-research-writing 把下面的方法草稿翻译成英文 LaTeX，保留公式和引用，只返回正文。
+用 $awesome-ai-research-writing 将这篇论文做成 12 分钟中文组会 PPT，交付可编辑 PPTX，附来源和讲稿。
+用 $awesome-ai-research-writing 根据 CSV 绘制对比图，标明原始点与误差线含义，交付源码、SVG 和 PNG。
+用 $awesome-ai-research-writing 根据 Method 和代码画框架图，区分训练和推理，交付可编辑源文件。
+```
 
-- 翻译与改写：中转英、英转中、中转中、缩写、扩写、英文润色、中文润色、去 AI 味
-- 阅读与分析：结构化读论文、论文分析、实验分析、科研问答、科研专家
-- 审稿与决策：Reviewer 视角审视、严格送审评议、模型选择
-- 图示与建模：论文架构图、实验绘图推荐、图标题、表标题、UML 建模
+也可以只要求大纲、绘图建议或提示词；技能会遵循指定交付形式。修改已有 PPT 时，说明目标页和保留要求即可。
 
 ## Part II: 论文写作相关的 Skills
 
-- [Skills 的配置](./awesome-ai-research-writing/SKILL.md)
-- [Skills 总览](./awesome-ai-research-writing/references/prompt-index.md)
-- [使用场景与示例 Prompt](./awesome-ai-research-writing/references/prompt-index.md#usage-examples)
-- [上游 Skills 与衔接建议](./awesome-ai-research-writing/references/upstream-skills.md)
+- [技能入口与路由](awesome-ai-research-writing/SKILL.md)
+- [科研 PPT 工作流](awesome-ai-research-writing/references/research-presentations.md)
+- [实验数据绘图](awesome-ai-research-writing/references/scientific-data-figures.md)
+- [论文框架绘图](awesome-ai-research-writing/references/framework-figures.md)
+- [参考项目、许可记录与专业工具衔接](awesome-ai-research-writing/references/upstream-skills.md)
+
+本包提供工作流指令，不捆绑 PPT 渲染器、Python/R 绘图库或图像生成服务。生成文件时复用当前环境的工具或已安装的专业 skill。请求实际 PPT/成图时会在工具允许下创建文件，并检查渲染结果；缺少能力时交付可用源码或方案，明确尚未完成的导出或视觉检查。
 
 ## 仓库结构
 
 ```text
 awesome-ai-research-writing/
 ├── SKILL.md
-├── agents/
-│   └── openai.yaml
+├── agents/openai.yaml
 └── references/
     ├── prompt-index.md
     ├── prompt-routing.md
     ├── paper-reading.md
     ├── research-assistant.md
-    ├── diagram-and-modeling.md
-    ├── translation-and-humanize.md
     ├── strict-review.md
+    ├── translation-and-humanize.md
+    ├── research-presentations.md
+    ├── scientific-data-figures.md
+    ├── framework-figures.md
+    ├── diagram-and-modeling.md
     └── upstream-skills.md
 ```
 
-各文件作用如下：
-
-- `SKILL.md`
-  - 定义 skill 的能力边界
-  - 告诉 Codex 在什么场景触发
-  - 规定核心工作流和输出规则
-- `references/prompt-index.md`
-  - 提供目录式 prompt 入口和示例调用
-- `references/prompt-routing.md`
-  - 负责核心写作任务路由
-- `references/paper-reading.md`
-  - 负责结构化读论文和系统性论文分析
-- `references/research-assistant.md`
-  - 负责科研问答、模型改进、模型选择
-- `references/diagram-and-modeling.md`
-  - 负责论文配图提示词和 UML 建模
-- `references/translation-and-humanize.md`
-  - 负责长难句翻译和去 AI 味改写
-- `references/strict-review.md`
-  - 负责 reviewer 风格审查和送审评议
-- `references/upstream-skills.md`
-  - 说明什么时候应该优先使用更专业的上游 skill
-- `agents/openai.yaml`
-  - 提供 Codex UI 元数据
+安装单元仍是 `awesome-ai-research-writing/`；其他目录不需要复制进 skills。
 
 ## 安装方式
 
-默认假设你在仓库根目录。
-
 ### 方式 1：手动安装
 
-Unix-like / macOS / Linux：
+在仓库根目录执行。已有同名安装时先备份并按需替换，避免混入旧版本文件。
+
+macOS / Linux：
 
 ```bash
-mkdir -p "$CODEX_HOME/skills"
-cp -R awesome-ai-research-writing "$CODEX_HOME/skills/"
-```
-
-如果没有设置 `CODEX_HOME`，可以使用默认目录：
-
-```bash
-mkdir -p "$HOME/.codex/skills"
-cp -R awesome-ai-research-writing "$HOME/.codex/skills/"
+skill_home="${CODEX_HOME:-$HOME/.codex}"
+skill_target="$skill_home/skills/awesome-ai-research-writing"
+if [ -e "$skill_target" ] || [ -L "$skill_target" ]; then
+  printf '%s\n' "Skill already exists: $skill_target. Back it up and move it before installing." >&2
+  exit 1
+fi
+mkdir -p "$skill_home/skills"
+cp -R awesome-ai-research-writing "$skill_target"
 ```
 
 Windows PowerShell：
 
 ```powershell
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
-New-Item -ItemType Directory -Force -Path (Join-Path $codexHome "skills") | Out-Null
-Copy-Item -Recurse -Force ".\awesome-ai-research-writing" (Join-Path $codexHome "skills")
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+$skillTarget = Join-Path $skillHome 'skills/awesome-ai-research-writing'
+if (Test-Path -LiteralPath $skillTarget) {
+    throw "Skill already exists: $skillTarget. Back it up and move it before installing."
+}
+New-Item -ItemType Directory -Force -Path (Join-Path $skillHome 'skills') -ErrorAction Stop | Out-Null
+Copy-Item -Recurse '.\awesome-ai-research-writing' -Destination $skillTarget -ErrorAction Stop
 ```
 
 ### 方式 2：通过 Codex skill-installer 安装
 
-如果你的环境里已经有 Codex 的 `skill-installer`，可以直接从 GitHub 安装。
+适用于环境已有 `skill-installer` 的情况。安装远端已发布的版本；本地修改请使用手动安装。
 
-Unix-like / macOS / Linux：
+macOS / Linux：
 
 ```bash
-python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
+python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo zengrong233/awesome-ai-research-writing-skill \
   --path awesome-ai-research-writing
 ```
@@ -142,35 +119,37 @@ python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-gi
 Windows PowerShell：
 
 ```powershell
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
-python (Join-Path $codexHome "skills\.system\skill-installer\scripts\install-skill-from-github.py") `
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+python (Join-Path $skillHome 'skills\.system\skill-installer\scripts\install-skill-from-github.py') `
   --repo zengrong233/awesome-ai-research-writing-skill `
   --path awesome-ai-research-writing
 ```
 
-安装完成后，重启 Codex 使 skill 生效。
+安装后重启 Codex，并使用 `$awesome-ai-research-writing` 调用。
 
 ## 设计原则
 
-这个 skill 故意把 `SKILL.md` 控制得比较轻。
+主入口保留路由与共同约束，具体工作流按需加载。用户指定的格式与模板优先；文本编辑不强加回译或修改日志；数据和示意图分别处理，所有定量结论有来源。PPT 与成图的可编辑性、导出和视觉检查以实际文件为准。
 
-主文件只保留：
+维护时可运行已安装的 skill-creator 校验器（需要 Python 及 PyYAML）：
 
-- 触发描述
-- 工作流规则
-- 输出约定
+```bash
+python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" awesome-ai-research-writing
+```
 
-更细的 prompt 和工作流放在 `references/` 中按需加载，这样更接近真实可用的 skill 包，而不是单纯的提示词堆叠。
+Windows PowerShell：
+
+```powershell
+$skillHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+python (Join-Path $skillHome 'skills/.system/skill-creator/scripts/quick_validate.py') .\awesome-ai-research-writing
+```
+
+同时检查本地链接、旧锚点、UI 元数据和代表性任务。这个结构检查不替代 PPT 或图像的视觉验收。
 
 ## 致谢与说明
 
-本仓库改造自以下项目的思路、任务分类与工作流意图：
-
-- [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing)
-
-它并不试图替代原项目，而是把那类内容转换成 Codex 更容易直接消费的 skill 包格式。
+写作分类参考 Leey21 的原始合集；科研 PPT 与绘图工作流参考 [Nature Skills](https://github.com/Yuan1z0825/nature-skills)、[Paper Framework Figure Studio Pro](https://github.com/c-narcissus/paper-framework-figure-studio-pro) 和 [SciPilot Figure](https://github.com/Haojae/scipilot-figure-skill)。参考版本、借鉴范围及许可依据见 [来源记录](awesome-ai-research-writing/references/upstream-skills.md#reference-projects)。本包未附带这些项目的运行时或素材。
 
 ## 许可证
 
-本仓库包含面向 Codex 的原创打包工作，同时也包含对上游项目思路与部分表达方式的适配整理。
-具体授权边界请查看 [LICENSE](./LICENSE)。
+本仓库原创建包与上游适配内容的授权边界见 [LICENSE](LICENSE)。参考项目的许可各自适用，不能据此推定所有历史内容具有同一许可。

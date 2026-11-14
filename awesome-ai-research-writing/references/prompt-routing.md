@@ -1,480 +1,139 @@
-# Prompt Routing
+# Writing Workflows
 
-Use this file to map common writing requests to the right academic-writing behavior.
-If the user asks for the old repository-style prompt directory, send them to `prompt-index.md`.
+Use the matching entry for direct academic editing. The [index](prompt-index.md) lists all entries. Existing anchors remain usable.
 
-This reference should preserve the intent of the original project prompts while using Codex-native skill structure instead of XML-like prompt tags.
+## Contents
+
+- Translation: [中转英](#cn-to-en) · [英转中](#en-to-cn) · [中转中](#cn-to-cn)
+- Editing: [缩写](#shorten) · [扩写](#expand) · [英文润色](#polish-en) · [中文润色](#polish-zh) · [逻辑检查](#logic-check)
+- Natural prose: [LaTeX 英文](#de-ai-latex-en) · [Word 中文](#de-ai-word-zh)
+- Figures: [架构图](#paper-figure-outline) · [实验选图](#experiment-figure-recommendation) · [图标题](#figure-title) · [表标题](#table-title)
+- Analysis and decisions: [实验分析](#experiment-analysis) · [Reviewer 审查](#reviewer-review) · [模型选择](#model-selection)
+
+## Shared editing contract
+
+The user's requested language, length, format, and template take precedence over defaults here. Otherwise preserve the source format and return the edited text first. Provide back-translation, alternatives, or a change log only when requested or needed to explain a material ambiguity. If the user requests the legacy multi-part format, use `Part 1 [LaTeX / Refined Text]`, `Part 2 [Translation / Logic Flow / Review Comments]`, and, where requested, `Part 3 [Modification Log]`.
+
+Preserve technical meaning, numbers, units, conditions, citation keys, math, labels, and commands. In LaTeX, escape new prose characters contextually; leave math subscripts, alignment symbols, and existing escapes intact. Use tense appropriate to the statement: descriptions and established facts often use present tense; completed experiments often use past tense. Follow field and manuscript conventions.
+
+Improve clarity and logical connection using standard academic vocabulary. Keep useful lists, notation, and formatting; do not add decorative emphasis. Do not replace a precise term merely for variety. Flag unsupported claims instead of polishing them into greater certainty.
 
 <a id="cn-to-en"></a>
 ## 1. 中转英
 
-Use when the user provides Chinese notes, paragraphs, or method descriptions and wants English paper text.
+Translate Chinese notes or prose into precise English academic text. Infer the relationship between fragments only when the source supports it. Preserve established translations of terms and abbreviations; introduce a short terminology mapping only when consistency needs explanation.
 
-### Core role
+Use LaTeX when requested or when editing a LaTeX source. For Word/plain-text input, do not add LaTeX commands by default. Keep meaning and qualifiers intact rather than translating colloquial emphasis into stronger scientific claims.
 
-Act like a top-tier academic writing expert and a demanding conference reviewer at the same time.
-Keep the taste level high, reject loose logic, and remove awkward or AI-sounding phrasing.
-
-### Core task
-
-Translate the Chinese draft into an English academic paper fragment and polish it into clean LaTeX-ready prose.
-
-### Constraints
-
-1. Visual and formatting constraints
-   - Avoid unnecessary bold, italics, or quotation marks.
-   - Keep the LaTeX source clean.
-   - Do not add meaningless formatting.
-2. Style and logic constraints
-   - Keep the logic rigorous, wording precise, and flow natural.
-   - Prefer common academic words over obscure vocabulary.
-   - Avoid em dashes where a clause or apposition works better.
-   - Do not use `\item`; use connected paragraphs.
-   - Remove AI-flavored sentence patterns and mechanical transitions.
-3. Tense constraints
-   - Use simple present for methods, architecture, and conclusions.
-   - Use past tense only when a real historical event is explicitly being described.
-4. Technical preservation
-   - Preserve formulas and inline math exactly.
-   - Escape newly added special characters such as `%`, `_`, and `&`.
-
-### Required output
-
-1. `Part 1 [LaTeX]`
-   - output the English content only
-   - keep it fully in English
-   - keep math unchanged
-2. `Part 2 [Translation]`
-   - output the Chinese back-translation for meaning check
-3. Do not output extra dialogue or explanation outside these two parts.
-
-### Self-review checklist
-
-1. Review the text like a strict reviewer.
-2. Check for over-formatting, logic jumps, and untranslated Chinese.
-3. Fix any issue immediately before returning the final result.
+Return the English artifact. Add Chinese back-translation only on request; keep it separate from the copy-ready text.
 
 <a id="en-to-cn"></a>
 ## 2. 英转中
 
-Use when the user wants to understand English paper text rather than publish the Chinese output.
+Choose the mode from the request and source context:
 
-### Core role
+- **Editable manuscript translation:** preserve LaTeX commands, math, citation keys, labels, and cross-references. Translate prose and translatable command arguments only; leave identifiers intact.
+- **Reading version:** translate fluent Chinese and render math clearly. Convert formatting commands to readable text. Retain citation and cross-reference meaning with resolved numbers when available, or readable markers such as `[引用: smith2024]` and `[图: fig:overview]` when unresolved. Never invent a reference number. Remove indexing-only syntax only in this reading mode, without losing the source relationship.
 
-Act like an academic translator who helps researchers map English paper sentences back to readable Chinese without hiding the original wording logic.
+If the request simply says “translate” and includes editable LaTeX, preserve that format. A request to explain or produce a reading version selects reading mode. Retain ambiguity in the source and briefly flag errors that affect interpretation; do not silently change the result being reported.
 
-### Core task
-
-Translate English LaTeX paper text into fluent Chinese for understanding while keeping the sentence-level meaning traceable to the original.
-
-### Constraints
-
-1. Syntax cleanup
-   - Delete indexing commands such as `\cite{...}`, `\ref{...}`, and `\label{...}` instead of translating them.
-   - For formatting commands such as `\textbf{text}` or `\emph{text}`, translate only the content inside braces.
-   - Convert LaTeX formulas into readable natural-language math descriptions or plain-text symbols when needed.
-2. Translation principles
-   - Translate directly rather than polishing or rewriting.
-   - Keep the Chinese sentence order as close to the English logic as practical.
-   - Do not silently fix grammar mistakes or awkwardness in the source.
-3. Output purity
-   - Output Chinese reading text only.
-   - Do not leave raw LaTeX syntax in the final answer.
-
-### Return
-
-1. The translated Chinese paragraph only
+Return the Chinese translation; explain syntax only if asked.
 
 <a id="cn-to-cn"></a>
 ## 3. 中转中
 
-Use when the user has a rough Chinese draft and wants it rewritten into formal academic Chinese.
+Turn rough Chinese research notes into connected academic prose, with one main point per paragraph. Reorder material when needed for a clear argument; do not fill missing mechanisms or results. Use contemporary academic Chinese, full-width punctuation, and accurate technical terms. Preserve a supplied Word, Markdown, or LaTeX format.
 
-### Core role
-
-Act like a senior Chinese journal editor who can turn fragmented spoken-style notes into coherent publishable prose.
-
-### Core task
-
-Rewrite the Chinese draft into a logically connected academic paragraph suitable for direct use in a paper.
-
-### Constraints
-
-1. Format and punctuation
-   - Output clean text with no Markdown markers.
-   - Use Chinese full-width punctuation.
-   - Keep reasonable spacing around formulas and preserved English technical terms.
-2. Logic and structure
-   - Reorganize the logic instead of polishing sentence by sentence.
-   - Follow the principle of one paragraph with one central point.
-   - Turn list-like fragments into connected prose.
-3. Style
-   - Replace spoken phrasing with objective written academic Chinese.
-   - Preserve established technical terms such as `Transformer`, `CNN`, or `Few-shot`.
-
-### Required output
-
-1. `Part 1 [Refined Text]`
-2. `Part 2 [Logic Flow]`
-3. Do not output extra dialogue outside these two parts.
-
-### Self-review checklist
-
-1. Check whether the result reads like a high-quality Chinese core-journal paragraph.
-2. Remove spoken residue and any Markdown symbols.
-3. Make sure the paragraph can be pasted into Word without carrying formatting artifacts.
+Return the revised text. Include a short logic-flow explanation only if requested or needed to explain a substantive reorganization.
 
 <a id="shorten"></a>
 ## 4. 缩写
 
-Use when the user wants the text shorter without losing technical content.
+Meet the user's word/character limit or compression ratio. If no target is supplied, remove redundancy while retaining the argument and important detail; no fixed word reduction applies. For a strict limit, state the counting basis when it matters (e.g., English words excluding equations).
 
-### Core role
+Compress repeated context, wordy clauses, and redundant transitions before deleting evidence. Preserve comparators, baselines, conditions, limitations, citations, and numeric values. If the limit cannot accommodate essential content, explain the specific conflict and offer a shorter version with any omitted detail identified outside the artifact.
 
-Act like a compression-focused academic editor who shortens text by tightening syntax rather than dropping meaning.
-
-### Core task
-
-Apply a small reduction to an English LaTeX paragraph, usually around 5 to 15 words.
-
-### Constraints
-
-1. Scope control
-   - Reduce the length only slightly.
-   - Keep all core information, technical details, conditions, and experiment settings.
-2. Compression methods
-   - Prefer syntactic compression such as clause-to-phrase rewrites.
-   - Remove filler such as `in order to` when a shorter equivalent works.
-3. Style
-   - Keep the LaTeX source clean.
-   - Avoid em dashes and list environments.
-   - Keep the result as a connected paragraph.
-4. Technical preservation
-   - Escape newly added `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Required output
-
-1. `Part 1 [LaTeX]`
-2. `Part 2 [Translation]`
-3. `Part 3 [Modification Log]`
-
-### Self-review checklist
-
-1. Verify that no parameter, condition, or evidence has been deleted accidentally.
-2. Check that the edit is still a micro-adjustment rather than a large rewrite.
+Return the shortened text in the source format. Report the count when requested or necessary to demonstrate a hard limit.
 
 <a id="expand"></a>
 ## 5. 扩写
 
-Use when the user wants slightly more depth, smoother transitions, or fuller logic.
+Expand to the requested depth or length by explaining supported premises, definitions, and logical transitions. Without a target, add only what makes the supplied argument understandable. Do not manufacture a mechanism, result, citation, experiment, or causal explanation to reach a word count.
 
-### Core role
+Separate proposed additions requiring evidence from the copy-ready paragraph. If a crucial premise is absent, ask a focused question or mark the gap explicitly in a working draft rather than presenting a guess as fact.
 
-Act like an academic editor who can make hidden logic explicit without inflating the prose.
-
-### Core task
-
-Apply a small expansion to an English LaTeX paragraph, usually around 5 to 15 words.
-
-### Constraints
-
-1. Scope control
-   - Expand only slightly.
-   - Do not pad the text with empty adjectives or repeated filler.
-2. Expansion methods
-   - Surface implicit premises, causal links, or conclusions already supported by the source text.
-   - Add only necessary connective logic.
-   - Upgrade vague wording into more precise academic phrasing.
-3. Style
-   - Keep the LaTeX source clean.
-   - Avoid bold, italics, quotation marks, em dashes, and itemization.
-   - Keep a connected paragraph structure.
-4. Technical preservation
-   - Escape newly added `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Required output
-
-1. `Part 1 [LaTeX]`
-2. `Part 2 [Translation]`
-3. `Part 3 [Modification Log]`
-
-### Self-review checklist
-
-1. Confirm that every added idea is a justified inference from the original text.
-2. Remove any addition that feels like padding rather than real logical support.
+Return the expanded text, followed only by necessary evidence gaps or requested notes.
 
 <a id="polish-en"></a>
 ## 6. 表达润色（英文论文）
 
-Use when the user already has English paper text and wants publication-quality rewriting.
+Fix grammar, spelling, articles, punctuation, terminology, and unclear sentence structure. Keep already effective wording. Preserve the author's register and the venue's conventions; avoid contractions or informal language where inappropriate. Possessives, passive voice, and punctuation are choices governed by clarity, not universal bans.
 
-### Core role
-
-Act like a senior academic editor for top CS conferences who aims for zero-error English and strong reviewer-facing readability.
-
-### Core task
-
-Deeply polish and partially rewrite English LaTeX paper text to improve rigor, clarity, fluency, and formal academic tone.
-
-### Constraints
-
-1. Academic rigor and syntax
-   - Fix spelling, grammar, punctuation, and article usage completely.
-   - Reshape awkward long sentences into smoother academic prose.
-   - Improve formality and coherence to match top-conference writing.
-2. Vocabulary and register
-   - Use formal written English.
-   - Avoid contractions such as `it's` or `doesn't`.
-   - Prefer simple, standard academic vocabulary over flashy or obscure words.
-   - Avoid possessive constructions like `METHOD's performance` when `the performance of METHOD` or another cleaner structure works better.
-3. Content and formatting preservation
-   - Keep standard abbreviations such as `LLM` unchanged.
-   - Preserve existing LaTeX commands such as `\cite{}`, `\ref{}`, `\eg`, and `\ie`.
-   - Preserve formatting already present in the source, but do not add new emphasis.
-4. Structure
-   - Do not convert the paragraph into item lists.
-5. Technical preservation
-   - Escape newly added `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Required output
-
-1. `Part 1 [LaTeX]`
-2. `Part 2 [Translation]`
-3. `Part 3 [Modification Log]`
-4. Do not output extra dialogue outside these three parts.
+Retain abbreviations, commands such as `\cite`, `\ref`, `\eg`, and `\ie`, and all math. Correct language without upgrading evidence or removing limitations. Return the polished English text in its original format.
 
 <a id="polish-zh"></a>
 ## 7. 表达润色（中文论文）
 
-Use when the user has Chinese academic prose that is mostly correct but needs normalization.
+Make necessary changes to unclear logic, grammar, colloquial wording, and inconsistent terminology. Keep publishable passages unchanged. Avoid officialese, redundant connectives, and translationese. For Word-ready requests, return plain text without Markdown decoration; preserve mathematical and technical content.
 
-### Core role
-
-Act like a senior Chinese academic editor who values restraint and intervenes only when there is a real problem.
-
-### Core task
-
-Review a Chinese paper paragraph and fix only necessary issues such as obvious language problems, logic gaps, or intrusive colloquial phrasing.
-
-### Constraints
-
-1. Intervention threshold
-   - Modify only when there is a real issue.
-   - Do not rewrite merely for variation or stylistic showing off.
-   - Preserve the author's original style whenever it is already publishable.
-2. Modern academic Chinese
-   - Prefer contemporary academic wording over old-fashioned officialese.
-   - Remove spoken phrasing such as `我们觉得` and replace it with objective description when needed.
-3. Logic and flow
-   - Add explicit connectives only when the logic is actually broken.
-4. Word-friendly output
-   - Output plain text only, with no Markdown emphasis.
-   - Use Chinese full-width punctuation.
-
-### Required output
-
-1. `Part 1 [Refined Text]`
-   - if revision is needed, output the revised text
-   - if no revision is needed, output the original text unchanged
-2. `Part 2 [Review Comments]`
-   - if revised, summarize the necessary fixes
-   - if unchanged, give a positive keep-as-is judgment
-
-### Self-review checklist
-
-1. Undo any unnecessary change made only to create variation.
-2. If no revision is needed, make sure Part 1 reproduces the original text in full.
-3. Remove all Markdown-style formatting marks.
+Return the full revised passage or the original if no change is needed. Add review comments only when requested or needed to clarify a substantive issue.
 
 <a id="logic-check"></a>
 ## 8. 逻辑检查
 
-Use when the user asks whether a paragraph or section is logically sound.
+Check contradictions, undefined or drifting terms, missing premises, unsupported causal or universal claims, inconsistent comparisons, and mismatches between numbers and conclusions. Distinguish scientific reasoning problems from optional stylistic edits. Do not assume prior revision or complete context.
 
-### Core role
-
-Act like a final-round academic proofreader who performs a high-threshold red-line check rather than a general polish pass.
-
-### Constraints
-
-1. Review threshold
-   - Assume the draft has already gone through several revisions.
-   - Report only issues that materially block understanding.
-   - Ignore optional style upgrades.
-2. What to check
-   - direct contradiction
-   - unexplained term drift
-   - severe grammar that breaks meaning
-   - logic breaks that confuse the reader
-
-### Return
-
-1. If clean: `[检测通过，无实质性问题]`
-2. If not clean: short Chinese issue bullets only
+Return concrete issues with a quoted phrase or location, the logical problem, and a repair direction. If none are found, say “在所提供文本范围内，未发现实质性逻辑问题。” Do not certify an unseen paper or unprovided experiments.
 
 <a id="de-ai-latex-en"></a>
 ## 9. 去 AI 味（LaTeX 英文）
 
-Use when English LaTeX paper text sounds too generic, too smooth, or too sales-like.
-
-Load `translation-and-humanize.md#de-ai-latex-en` for the full native-prompt rules.
-
-### Return
-
-1. `Part 1 [LaTeX]`
-2. `Part 2 [Translation]`
-3. `Part 3 [Modification Log]`
+Use [natural English LaTeX editing](translation-and-humanize.md#de-ai-latex-en). Follow the shared editing contract; the legacy three-part format is available on request.
 
 <a id="de-ai-word-zh"></a>
 ## 10. 去 AI 味（Word 中文）
 
-Use when Chinese Word-style prose sounds template-driven or overly machine-generated.
-
-Load `translation-and-humanize.md#de-ai-word-zh` for the full native-prompt rules.
-
-### Return
-
-1. `Part 1 [正文]`
-2. `Part 2 [修改日志 / Modification Log]`
+Use [natural Chinese editing](translation-and-humanize.md#de-ai-word-zh). Return copy-ready prose first; a modification log is optional.
 
 <a id="paper-figure-outline"></a>
 ## 11. 论文架构图
 
-Use when the user wants a publishable method figure or architecture diagram prompt.
-
-Load `diagram-and-modeling.md#paper-figure-prompts`.
-
-### Return
-
-1. Level 1 / Level 2 / Level 3 English prompts
-2. Short Chinese explanation of what each level is for
+For actual editable figures, use [framework figures](framework-figures.md). For explicitly requested prompts, use [figure prompts](diagram-and-modeling.md#paper-figure-prompts). Keep the semantic structure grounded in the method rather than inventing modules for visual symmetry.
 
 <a id="experiment-figure-recommendation"></a>
 ## 12. 实验绘图推荐
 
-Use when the user asks which plots to draw for ablations, comparisons, trends, or error analysis.
-
-Load `diagram-and-modeling.md#experiment-figure-recommendation`.
-
-### Return
-
-1. `推荐方案`
-2. `核心理由`
-3. `视觉设计规范`
+Use [plot recommendations](diagram-and-modeling.md#experiment-figure-recommendation) for advice or [scientific data figures](scientific-data-figures.md) to create the figure. State the question, required data, proposed encoding, and supported inference.
 
 <a id="figure-title"></a>
 ## 13. 生成图的标题
 
-Use when the user wants publication-ready figure titles or captions.
+Return the requested title or caption only, in the requested language; default to English when translating a Chinese description for an English paper. Follow the supplied venue/template capitalization and numbering. Otherwise use concise sentence case and omit an automatic `Figure 1:` prefix.
 
-### Core role
-
-Act like an academic editor who can turn a Chinese description into a clean English figure title.
-
-### Constraints
-
-1. Format rules
-   - If the result is a noun phrase, use Title Case and no final period.
-   - If the result is a full sentence, use Sentence case and add a final period.
-2. Style
-   - Remove openers such as `The figure shows` or `This diagram illustrates`.
-   - Prefer simple, accurate wording over fancy vocabulary.
-3. Output purity
-   - Output the title text only.
-   - Do not include prefixes such as `Figure 1:`.
-   - Escape `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Return
-
-1. The final English figure title only
+A title names the subject or comparison. A caption also explains panels, encodings, abbreviations, conditions, and uncertainty as needed for independent reading. Do not call a difference “significant” without supplied statistical support. Preserve symbols and apply LaTeX escaping only for LaTeX output.
 
 <a id="table-title"></a>
 ## 14. 生成表的标题
 
-Use when the user wants table titles or table captions for a paper.
+Follow the same title/caption distinction and venue formatting as figure titles. Identify the dataset, comparison, or ablation precisely. Define units, metric direction, best-value formatting, and uncertainty in a full caption or note when supported. Do not invent the meaning of boldface or an unexplained `±`.
 
-### Core role
-
-Act like an academic editor who can turn a Chinese description into a precise English table title.
-
-### Constraints
-
-1. Format rules
-   - If the result is a noun phrase, use Title Case and no final period.
-   - If the result is a full sentence, use Sentence case and add a final period.
-2. Style
-   - Prefer patterns such as `Comparison with`, `Ablation Study on`, or `Results on` when suitable.
-   - Avoid inflated verbs such as `showcase` or `depict` when `show`, `compare`, or `present` is clearer.
-3. Output purity
-   - Output the title text only.
-   - Do not include prefixes such as `Table 1:`.
-   - Escape `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Return
-
-1. The final English table title only
+Return the title or caption only unless missing information prevents an accurate one.
 
 <a id="experiment-analysis"></a>
 ## 15. 实验分析
 
-Use when the user provides result tables, CSV-like data, or metric comparisons and wants a paper paragraph.
+Read the supplied table, logs, or values before drafting. Identify metric direction, comparable conditions, denominators, units, and whether values are per-run or aggregate. Calculate differences explicitly and check them: 80% to 84% is +4 percentage points or +5% relative, not +4% relative.
 
-### Core role
+Lead with the main supported finding, then the comparison and its conditions, followed by a relevant trade-off or limit. Avoid restating every cell. Do not infer significance from point estimates or a causal mechanism from correlation alone. Label a mechanism as a hypothesis unless the experiment isolates it.
 
-Act like a data analyst who can turn experimental numbers into evidence-backed LaTeX prose for a paper.
-
-### Core task
-
-Extract trends, comparisons, and trade-offs from the supplied data and write them as a conference-ready analysis paragraph.
-
-### Constraints
-
-1. Data truthfulness
-   - Base every conclusion strictly on the supplied data.
-   - Do not invent improvements, trends, or statistical claims.
-2. Analysis depth
-   - Avoid ledger-style repetition of raw numbers.
-   - Focus on effectiveness, sensitivity, trade-offs, and ablation contribution where supported.
-3. Format
-   - Use the structure `\paragraph{Core Conclusion}` followed by analysis text in the same paragraph.
-   - Keep `\paragraph{}` concise and in Title Case.
-   - Do not use `\textbf`, `\emph`, or list environments.
-   - Leave a blank line between distinct conclusion paragraphs when needed.
-4. Technical preservation
-   - Escape `%`, `_`, and `&`.
-   - Keep formulas unchanged.
-
-### Required output
-
-1. `Part 1 [LaTeX]`
-2. `Part 2 [Translation]`
-3. Do not output extra dialogue outside these two parts.
+Return prose in the requested format. Use `\paragraph{...}` only if requested or consistent with the supplied template. For plots, use [scientific data figures](scientific-data-figures.md).
 
 <a id="reviewer-review"></a>
 ## 16. 论文整体以 Reviewer 视角进行审视
 
-Use when the user wants a reviewer-style diagnosis of a section, paper, or submission package.
-
-Load `strict-review.md#reviewer-review`.
-
-### Return
-
-1. `Part 1 [The Review Report]`
-2. `Part 2 [Strategic Advice]`
+Use [reviewer review](strict-review.md#reviewer-review). Findings need manuscript locations and evidence; partial input supports a partial review.
 
 <a id="model-selection"></a>
 ## 17. 模型选择
 
-Use when the user wants help choosing among candidate model directions, backbones, or improvement routes.
-
-Load `research-assistant.md#model-selection`.
-
-### Return
-
-1. Option comparison
-2. Recommended choice with trade-offs
+Use [model selection](research-assistant.md#model-selection). Compare the actual constraints and recommend a testable choice with trade-offs.
