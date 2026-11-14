@@ -7,6 +7,8 @@
 
 A Codex skill for bilingual academic writing, paper reading and review, research presentations, quantitative plots, and method diagrams. It completes the requested task directly; reusable prompts are returned when explicitly requested.
 
+[Capabilities](#why-this-exists) · [Presentations and figures](#research-presentations-and-scientific-figures) · [Usage examples](#part-i-prompt-and-workflow-catalog) · [Installation](#installation) · [Attribution](#attribution)
+
 ## Why This Exists
 
 Carry the same evidence and formatting rules across research outputs:
@@ -22,6 +24,20 @@ Carry the same evidence and formatting rules across research outputs:
 
 Preserve equations, citation keys, values, units, and uncertainty. Distinguish editable translations from reading versions. Follow the requested length rather than a fixed word adjustment, and limit judgments when full manuscripts or statistical evidence are unavailable.
 
+## Research Presentations and Scientific Figures
+
+Use these three workflows independently or together for the same paper:
+
+| Module | Materials to provide | Deliverables |
+| --- | --- | --- |
+| [Research presentations](awesome-ai-research-writing/references/research-presentations.md) | Paper or research materials, audience, duration, and language; optionally a template or existing deck | A story suited to a journal club, group meeting, defense, or conference talk; slide content, timing, attribution, speaker notes, and editable PPTX |
+| [Scientific data figures](awesome-ai-research-writing/references/scientific-data-figures.md) | CSV/table, metric definitions, repeated experiments and sampling units, and target layout | Comparisons, ablations, distributions, or multi-panel plots with defined uncertainty; reproducible source and exports such as SVG/PDF and PNG |
+| [Method framework figures](awesome-ai-research-writing/references/framework-figures.md) | Method, module relationships, and tensor or data flow; optionally code and sketches | Framework diagrams distinguishing training from inference, node and edge explanations, editable source, and rendered figures |
+
+**The request determines the deliverable.** Ask for an outline, chart recommendations, English figure prompts, or edits to selected slides in an existing deck. Actual file requests use the available tools for export and rendered inspection; any incomplete step is identified when tools are unavailable.
+
+Data figures use actual observations and distinguish raw data from summary statistics. Distributions and confidence intervals are not invented from means. Framework figures follow the supplied method and code, marking missing mechanisms for confirmation. Schematics and quantitative results follow their respective evidence rules.
+
 ## Original Project vs This Repository
 
 This package builds on the task taxonomy of [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing), organizing workflows into an installable `SKILL.md` and references loaded on demand. It adds research presentations and scientific figures. Consult the original repository for its current capabilities and rights status.
@@ -30,14 +46,33 @@ This package builds on the task taxonomy of [Leey21/awesome-ai-research-writing]
 
 The [workflow catalog](awesome-ai-research-writing/references/prompt-index.md) is the single index of all routes, legacy prompt entries, and examples.
 
+After installation and restarting Codex, attach your materials and choose a request matching your goal.
+
+**Writing and translation**
+
 ```text
 Use $awesome-ai-research-writing to translate this method draft into English LaTeX. Preserve equations and citations; return only the text.
+```
+
+**Research presentations**
+
+```text
 Use $awesome-ai-research-writing to turn this paper into a 12-minute journal-club PPT. Deliver editable PPTX with source attribution and speaker notes.
+```
+
+**Scientific data figures**
+
+```text
 Use $awesome-ai-research-writing to plot this CSV comparison, showing raw observations and defining uncertainty. Deliver source, SVG, and PNG.
+```
+
+**Method framework figures**
+
+```text
 Use $awesome-ai-research-writing to draw an editable framework figure from the Method and code, distinguishing training from inference.
 ```
 
-Outline-only, recommendation-only, and prompt-only requests are supported. For an existing deck, specify the target slides and what must be preserved.
+For a closer fit, specify the audience, duration, and slide count for presentations; sampling units and uncertainty definitions for data figures; and required modules and paths for framework figures. Include any templates, legends, or color requirements.
 
 ## Part II: Related Skill Resources
 
@@ -75,7 +110,14 @@ The installable unit remains `awesome-ai-research-writing/`; other directories d
 
 ### Option 1: Manual Install
 
-Run from the repository root. Back up and replace an existing installation deliberately to avoid mixing old and new files.
+Download the repository first. These commands require Git and work in macOS / Linux terminals and Windows PowerShell:
+
+```bash
+git clone https://github.com/zengrong233/awesome-ai-research-writing-skill.git
+cd awesome-ai-research-writing-skill
+```
+
+Alternatively, download a ZIP from GitHub, extract it, and open a terminal at the repository root before running the installation commands for your platform. If you already have a local checkout, enter its root directory. For an existing skill installation, back up and move the installed directory before copying the complete new version to avoid mixing old and new files.
 
 macOS / Linux:
 
